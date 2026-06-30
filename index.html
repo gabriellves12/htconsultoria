@@ -255,12 +255,12 @@ ul{margin:0;padding:0;list-style:none}
 .lp-feature__panel .lp-pull{margin-top:36px;padding-top:32px}
 
 /* ===== ORIGEM (centralizado + foto do fundador no fundo) ===== */
-.lp-origem{position:relative;overflow:hidden;display:flex;align-items:center;min-height:78vh}
-.lp-origem__bg{position:absolute;inset:0;z-index:0;background:var(--neutral-950) center/cover no-repeat}
+.lp-origem{position:relative;overflow:hidden;display:flex;align-items:flex-end;min-height:88vh}
+.lp-origem__bg{position:absolute;inset:0;z-index:0;background:var(--neutral-950) center 25%/cover no-repeat}
 .lp-origem__bg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,10,10,.5) 0%,rgba(10,10,10,.62) 55%,rgba(10,10,10,.8) 100%)}
-.lp-origem__split{position:relative;z-index:2;display:grid;gap:28px;width:100%}
-@media(min-width:1024px){.lp-origem__split{grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start}}
+  background:linear-gradient(180deg,rgba(10,10,10,.32) 0%,rgba(10,10,10,.4) 45%,rgba(10,10,10,.86) 100%)}
+.lp-origem__split{position:relative;z-index:2;display:grid;gap:24px;width:100%}
+@media(min-width:1024px){.lp-origem__split{grid-template-columns:.85fr 1.15fr;gap:64px;align-items:end}}
 .lp-origem__title{display:flex;flex-direction:column;gap:22px}
 .lp-origem__title .lp-h2{margin:0;max-width:16ch}
 .lp-origem__body .lp-narrative{margin:0}
@@ -603,9 +603,8 @@ ul{margin:0;padding:0;list-style:none}
     </div>
     <div class="lp-origem__body reveal" data-anim="right" data-delay="1">
       <div class="lp-narrative">
-        <p>Durante mais de 13 anos, nosso fundador viveu a rotina de uma empresa de obra pesada. Não como consultor, não como auditor, não fazendo visitas pontuais, ele estava <span class="hl">do lado de dentro da operação.</span></p>
-        <p>Primeiro organizando processos. Depois assumindo cada vez mais responsabilidades, até se tornar, na prática, o braço direito do dono. Viu novos contratos chegarem, novas equipes serem formadas, novas máquinas entrarem. Mas também viveu o outro lado: a desorganização, a perda de visibilidade, a crise e a difícil reconstrução.</p>
-        <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como a empresa enxerga, ou deixa de enxergar, a própria operação.</p>
+        <p>Por mais de 13 anos, nosso fundador viveu por dentro a rotina de uma empresa de obra pesada, não como consultor ou auditor, mas como <span class="hl">parte da operação.</span> Começou organizando processos e foi assumindo cada vez mais responsabilidades, até se tornar o braço direito do dono. Acompanhou o crescimento: novos contratos, equipes, máquinas. Mas também viveu o outro lado: desorganização, perda de visibilidade, crise e reconstrução.</p>
+        <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como ela enxerga, ou deixa de enxergar, a própria operação.</p>
       </div>
     </div>
   </div>
