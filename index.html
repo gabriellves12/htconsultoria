@@ -851,6 +851,24 @@ ul{margin:0;padding:0;list-style:none}
 })();
 </script>
 
+<!-- ===== HERO: loop infinito robusto (resume se pausar/voltar à aba) ===== -->
+<script>
+(function(){
+  var v=document.querySelector('.lp-hero__video');
+  if(!v) return;
+  v.muted=true; v.loop=true; v.setAttribute('playsinline','');
+  function play(){ try{ var p=v.play(); if(p&&p.catch){p.catch(function(){});} }catch(e){} }
+  v.addEventListener('loadeddata',play);
+  v.addEventListener('canplay',play);
+  v.addEventListener('ended',function(){ try{v.currentTime=0;}catch(e){} play(); }); /* fallback do loop */
+  v.addEventListener('pause',function(){ if(!document.hidden) play(); });             /* resume se pausar sozinho */
+  v.addEventListener('stalled',play);
+  v.addEventListener('error',function(){ try{v.load();}catch(e){} play(); });
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) play(); });
+  play();
+})();
+</script>
+
 <!-- ===== MUDANÇA DE COR DAS DOBRAS NO SCROLL (cross-fade 1.2s) ===== -->
 <script>
 (function(){
