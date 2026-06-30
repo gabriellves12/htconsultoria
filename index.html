@@ -255,20 +255,17 @@ ul{margin:0;padding:0;list-style:none}
 .lp-feature__panel .lp-pull{margin-top:36px;padding-top:32px}
 
 /* ===== ORIGEM (centralizado + foto do fundador no fundo) ===== */
-.lp-origem{position:relative;overflow:hidden;text-align:center;display:flex;align-items:center;min-height:80vh}
+.lp-origem{position:relative;overflow:hidden;display:flex;align-items:center;min-height:78vh}
 .lp-origem__bg{position:absolute;inset:0;z-index:0;background:var(--neutral-950) center/cover no-repeat}
-/* TODO: foto do fundador → adicione no .lp-origem__bg:  style="background-image:url('assets/fundador.jpg')" */
 .lp-origem__bg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.7) 60%,rgba(10,10,10,.82) 100%)}
-.lp-origem__ph{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:1;
-  font-size:var(--fs-caption);letter-spacing:.16em;text-transform:uppercase;color:rgba(242,240,217,.26)}
-.lp-origem__inner{position:relative;z-index:2;max-width:840px;margin:0 auto;
-  display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
-.lp-origem .lp-label__sub{margin-inline:auto}
-.lp-origem .lp-h2{max-width:24ch;margin:0}
-.lp-origem .lp-narrative{max-width:760px;margin:0}
-.lp-origem .lp-narrative p{font-size:1.25rem;line-height:1.55} /* 20px */
-.lp-origem .lp-narrative p+p{margin-top:20px}
+  background:linear-gradient(180deg,rgba(10,10,10,.5) 0%,rgba(10,10,10,.62) 55%,rgba(10,10,10,.8) 100%)}
+.lp-origem__split{position:relative;z-index:2;display:grid;gap:28px;width:100%}
+@media(min-width:1024px){.lp-origem__split{grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start}}
+.lp-origem__title{display:flex;flex-direction:column;gap:22px}
+.lp-origem__title .lp-h2{margin:0;max-width:16ch}
+.lp-origem__body .lp-narrative{margin:0}
+.lp-origem__body .lp-narrative p{font-size:1.25rem;line-height:1.55} /* 20px */
+.lp-origem__body .lp-narrative p+p{margin-top:20px}
 
 /* ===== QUOTE ===== */
 .lp-quote{display:grid;gap:28px}
@@ -595,19 +592,21 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </section>
 
-<!-- ============ ORIGEM / SOBRE (centralizado · foto do fundador no fundo) ============ -->
+<!-- ============ ORIGEM / SOBRE (título esq · texto dir · foto do fundador no fundo) ============ -->
 <section class="lp-section lp-dark lp-origem" id="origem">
-  <!-- ESPAÇO PARA IMAGEM DE FUNDO (foto do fundador) — adicione style="background-image:url('assets/fundador.jpg')" no .lp-origem__bg -->
-  <div class="lp-origem__bg" aria-hidden="true"></div>
-  <span class="lp-origem__ph" aria-hidden="true">foto do fundador (fundo)</span>
+  <div class="lp-origem__bg" style="background-image:url('assets/fundador.png')" aria-hidden="true"></div>
 
-  <div class="lp-container lp-origem__inner reveal">
-    <span class="lp-label">A origem da HT.<span class="lp-label__sub">Nasceu dentro de uma construtora, não em uma sala de reunião.</span></span>
-    <h2 class="lp-h2">Uma metodologia criada por quem viveu o problema <span class="lp-accent">de dentro.</span></h2>
-    <div class="lp-narrative">
-      <p>Durante mais de 13 anos, nosso fundador viveu a rotina de uma empresa de obra pesada. Não como consultor, não como auditor, não fazendo visitas pontuais, ele estava <span class="hl">do lado de dentro da operação.</span></p>
-      <p>Primeiro organizando processos. Depois assumindo cada vez mais responsabilidades, até se tornar, na prática, o braço direito do dono. Viu novos contratos chegarem, novas equipes serem formadas, novas máquinas entrarem. Mas também viveu o outro lado: a desorganização, a perda de visibilidade, a crise e a difícil reconstrução.</p>
-      <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como a empresa enxerga, ou deixa de enxergar, a própria operação.</p>
+  <div class="lp-container lp-origem__split">
+    <div class="lp-origem__title reveal">
+      <span class="lp-label">A origem da HT.<span class="lp-label__sub">Nasceu dentro de uma construtora, não em uma sala de reunião.</span></span>
+      <h2 class="lp-h2">Uma metodologia criada por quem viveu o problema <span class="lp-accent">de dentro.</span></h2>
+    </div>
+    <div class="lp-origem__body reveal" data-anim="right" data-delay="1">
+      <div class="lp-narrative">
+        <p>Durante mais de 13 anos, nosso fundador viveu a rotina de uma empresa de obra pesada. Não como consultor, não como auditor, não fazendo visitas pontuais, ele estava <span class="hl">do lado de dentro da operação.</span></p>
+        <p>Primeiro organizando processos. Depois assumindo cada vez mais responsabilidades, até se tornar, na prática, o braço direito do dono. Viu novos contratos chegarem, novas equipes serem formadas, novas máquinas entrarem. Mas também viveu o outro lado: a desorganização, a perda de visibilidade, a crise e a difícil reconstrução.</p>
+        <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como a empresa enxerga, ou deixa de enxergar, a própria operação.</p>
+      </div>
     </div>
   </div>
 </section>
