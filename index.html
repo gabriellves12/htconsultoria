@@ -255,11 +255,9 @@ ul{margin:0;padding:0;list-style:none}
 .lp-feature__panel .lp-pull{margin-top:36px;padding-top:32px}
 
 /* ===== ORIGEM (centralizado + foto do fundador no fundo) ===== */
-.lp-origem{position:relative;overflow:hidden;display:flex;align-items:flex-end;min-height:88vh}
+.lp-origem{position:relative;overflow:hidden;display:flex;align-items:flex-end;min-height:88vh;padding-bottom:40px}
 .lp-origem__bg{position:absolute;inset:0;z-index:0;background:var(--neutral-950) center 25%/cover no-repeat}
-.lp-origem__bg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,10,10,.32) 0%,rgba(10,10,10,.4) 45%,rgba(10,10,10,.86) 100%)}
-.lp-origem__split{position:relative;z-index:2;display:grid;gap:24px;width:100%}
+.lp-origem__split{position:relative;z-index:2;display:grid;gap:24px;width:100%;text-shadow:0 1px 18px rgba(0,0,0,.5)}
 @media(min-width:1024px){.lp-origem__split{grid-template-columns:.85fr 1.15fr;gap:64px;align-items:end}}
 .lp-origem__title{display:flex;flex-direction:column;gap:22px}
 .lp-origem__title .lp-h2{margin:0;max-width:16ch}
