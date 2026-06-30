@@ -1,0 +1,227 @@
+/* ============================================================
+   HT — DESIGN SYSTEM · BASE & PRIMITIVOS
+   ------------------------------------------------------------
+   Depende de tokens.css. Classes prefixadas com `ht-` em
+   kebab-case — seguras para WordPress/Elementor (não vazam
+   para o tema). Importar após tokens.css:
+
+     <link rel="stylesheet" href="design-system/tokens.css">
+     <link rel="stylesheet" href="design-system/base.css">
+
+   Fonte (Google Fonts) — incluir no <head>:
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+   ============================================================ */
+
+/* ---------- Reset enxuto, escopado ao wrapper .ht ---------- */
+.ht *,
+.ht *::before,
+.ht *::after { box-sizing: border-box; }
+
+.ht {
+  font-family: var(--font-base);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Container ---------- */
+.ht-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-pad-mobile);
+}
+.ht-container--narrow { max-width: var(--container-narrow); }
+
+@media (min-width: 1024px) {
+  .ht-container { padding-inline: var(--container-pad); }
+}
+
+/* ---------- Seção (dobra) ---------- */
+.ht-section { padding-block: var(--section-gap-mobile); }
+@media (min-width: 1024px) {
+  .ht-section { padding-block: var(--section-gap); }
+}
+.ht-section--dark  { background: var(--color-bg-dark);  color: var(--color-text-inverse); }
+.ht-section--cream { background: var(--color-bg-alt); }
+.ht-section--olive { background: var(--color-primary); color: var(--color-text-on-primary); }
+
+/* ============================================================
+   TIPOGRAFIA — classes utilitárias
+   ============================================================ */
+.ht-eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.ht-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tighter);
+}
+.ht-h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+}
+.ht-h1--long { font-size: var(--fs-h1-long); }
+.ht-h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-tight);
+}
+.ht-h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+}
+.ht-body { font-size: var(--fs-body); line-height: var(--lh-relaxed); }
+.ht-body--sm { font-size: var(--fs-body-sm); }
+.ht-caption {
+  font-size: var(--fs-caption);
+  color: var(--color-text-subtle);
+  line-height: var(--lh-normal);
+}
+.ht-muted { color: var(--color-text-muted); }
+.ht-accent { color: var(--color-accent); }
+
+/* Clamp fluido p/ display em telas grandes (opcional) */
+@media (min-width: 1024px) {
+  .ht-display--xl { font-size: clamp(3.5rem, 5vw, 4rem); }
+}
+
+/* ============================================================
+   BOTÕES
+   ============================================================ */
+.ht-btn {
+  --_bg: var(--color-cta-bg);
+  --_fg: var(--color-cta-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-base);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--_bg);
+  color: var(--_fg);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-out),
+              background-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.ht-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-accent); }
+.ht-btn:active { transform: translateY(0); }
+.ht-btn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+/* Variante primária (CTA terracota) — default acima */
+.ht-btn--primary { --_bg: var(--color-cta-bg); --_fg: var(--color-cta-text); }
+.ht-btn--primary:hover { background: var(--color-cta-bg-hover); }
+
+/* Variante oliva */
+.ht-btn--olive { --_bg: var(--color-primary); --_fg: var(--color-text-on-primary); }
+.ht-btn--olive:hover { background: var(--color-primary-hover); box-shadow: var(--shadow-md); }
+
+/* Secundário — contorno */
+.ht-btn--outline {
+  background: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+.ht-btn--outline:hover { border-color: var(--color-accent); color: var(--color-accent); box-shadow: none; }
+
+/* Em fundo escuro */
+.ht-btn--ghost-light {
+  background: transparent;
+  border-color: var(--color-border-inverse);
+  color: var(--color-text-inverse);
+}
+.ht-btn--ghost-light:hover { background: rgba(242,240,217,0.08); box-shadow: none; }
+
+/* Tamanhos */
+.ht-btn--lg { font-size: var(--fs-body); padding: var(--space-5) var(--space-8); }
+.ht-btn--sm { font-size: var(--fs-caption); padding: var(--space-3) var(--space-4); }
+.ht-btn--block { display: flex; width: 100%; }
+
+/* Micro-animação contínua opcional (pulse) */
+@keyframes ht-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(163,124,85,0.5); }
+  70%      { box-shadow: 0 0 0 14px rgba(163,124,85,0); }
+}
+.ht-btn--pulse { animation: ht-pulse 2.4s var(--ease-out) infinite; }
+
+/* ============================================================
+   CHIPS / TAGS / BADGES
+   ============================================================ */
+.ht-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--olive-50);
+  color: var(--olive-700);
+  border: 1px solid var(--olive-100);
+}
+.ht-chip--clay { background: var(--clay-50); color: var(--clay-800); border-color: var(--clay-100); }
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.ht-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.ht-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.ht-card--cream { background: var(--color-surface-cream); border-color: var(--cream-deep); }
+.ht-card--dark  { background: var(--color-surface-dark); border-color: var(--color-border-inverse); color: var(--color-text-inverse); }
+
+/* ============================================================
+   DIVISOR
+   ============================================================ */
+.ht-divider { height: 1px; background: var(--color-border); border: 0; }
+.ht-divider--inverse { background: var(--color-border-inverse); }
+
+/* ============================================================
+   ANIMAÇÃO DE ENTRADA DE DOBRA (fade-in + slide-up)
+   Aplicar .ht-reveal e alternar .is-visible via IntersectionObserver
+   ============================================================ */
+.ht-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+              transform var(--dur-reveal) var(--ease-out);
+}
+.ht-reveal.is-visible { opacity: 1; transform: none; }
+/* Stagger por índice (listas) */
+.ht-reveal[data-delay="1"] { transition-delay: 80ms; }
+.ht-reveal[data-delay="2"] { transition-delay: 160ms; }
+.ht-reveal[data-delay="3"] { transition-delay: 240ms; }
+.ht-reveal[data-delay="4"] { transition-delay: 320ms; }

@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Overclock (estado local do app)
+.overclock-app/
+
+# Logs / temporários
+*.log

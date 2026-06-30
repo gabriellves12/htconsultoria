@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HT · Diagnóstico Estratégico para Construtoras</title>
+<meta name="description" content="A HT devolve ao empresário da construção aquilo que nenhuma ferramenta entrega sozinha: visibilidade sobre o negócio. Faça seu Diagnóstico Estratégico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/base.css">
+<style>
+/* ============================================================
+   HT · LANDING PAGE — diagramação em grid editorial
+   Conteúdo nas extremidades · hairlines · rótulos no rail.
+   Consome o design system (tokens.css + base.css). Sem build.
+   ============================================================ */
+/* grid mais próximo das extremidades da tela */
+:root{--container-max:1880px;--container-pad:48px;--container-pad-mobile:20px}
+/* apenas Regular (400) e Medium (500) na página — remapeia pesos mais fortes p/ medium */
+:root{--fw-semibold:500;--fw-bold:500}
+/* botões com bordas arredondadas (pill) */
+.ht-btn{border-radius:var(--radius-pill)}
+
+/* CTA estilo Elementor (badge de ícone à direita que expande no hover) — cor dourada do DS */
+.lp-cta{position:relative;overflow:hidden;border-radius:var(--radius-pill);
+  padding:18px 70px 18px 34px!important;
+  background:linear-gradient(90deg,var(--clay-500) 0%,var(--clay-700) 100%)!important;
+  color:var(--cream-base);transition:all 500ms ease}
+.lp-cta:hover{transform:translateY(-2px)}
+.lp-cta__label{position:relative;z-index:2;transition:color 500ms ease}
+.lp-cta:hover .lp-cta__label{color:var(--clay-700)}
+.lp-cta__icon{position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:1;
+  width:38px;height:38px;border-radius:var(--radius-pill);background:var(--cream-base);
+  color:var(--clay-700);display:flex;align-items:center;justify-content:flex-end;
+  padding-right:11px;overflow:hidden;transition:width 500ms ease}
+.lp-cta__icon svg{width:18px;height:18px;flex-shrink:0;fill:currentColor}
+.lp-cta:hover .lp-cta__icon{width:calc(100% - 16px)}
+.lp-cta--sm{padding:13px 54px 13px 24px!important}
+.lp-cta--sm .lp-cta__icon{width:32px;height:32px;padding-right:9px}
+.lp-cta--sm .lp-cta__icon svg{width:15px;height:15px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--font-base);font-size:var(--fs-body);
+  line-height:var(--lh-relaxed);color:var(--color-text);
+  background-color:var(--color-bg-dark);
+  transition:background-color .5s ease; /* cross-fade de cor entre dobras (rápido) */
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
+}
+/* com JS ativo, as dobras ficam transparentes p/ revelar o fundo que faz o cross-fade */
+.colorfx .lp-dark,.colorfx .lp-cream,.colorfx .lp-white,.colorfx .lp-proof{background-color:transparent}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+ul{margin:0;padding:0;list-style:none}
+
+/* ---------- Container / grid base ---------- */
+.lp-container{width:100%;max-width:var(--container-max);margin:0 auto;padding-inline:var(--container-pad-mobile)}
+@media(min-width:1024px){.lp-container{padding-inline:var(--container-pad)}}
+
+.lp-section{padding-block:var(--space-12);position:relative}
+@media(min-width:1024px){.lp-section{padding-block:var(--space-16)}} /* 120px entre dobras */
+.lp-dark{background:var(--color-bg-dark);color:var(--color-text-inverse)}
+.lp-cream{background:var(--color-bg-alt);color:var(--color-text)}
+.lp-white{background:var(--color-bg);color:var(--color-text)}
+
+/* Rótulo de rail (eyebrow editorial, colado à esquerda) */
+.lp-label{
+  display:inline-block;font-size:var(--fs-caption);font-weight:var(--fw-semibold);
+  letter-spacing:.06em;text-decoration:underline;text-decoration-color:var(--color-accent);
+  text-underline-offset:5px;text-decoration-thickness:1.5px;color:var(--color-text);
+}
+.lp-dark .lp-label{color:var(--cream-base)}
+.lp-label__sub{display:block;margin-top:14px;font-size:var(--fs-caption);font-weight:400;letter-spacing:0;color:var(--color-text-subtle);text-decoration:none;max-width:22ch;line-height:1.5}
+.lp-dark .lp-label__sub{color:rgba(242,240,217,.5)}
+
+/* Linha rail: rótulo à extremidade esquerda + corpo */
+.lp-rail{display:grid;gap:28px}
+@media(min-width:1024px){.lp-rail{grid-template-columns:200px minmax(0,1fr);gap:72px;align-items:start}}
+
+.lp-h2{font-size:clamp(1.625rem,3vw,2.375rem);font-weight:var(--fw-bold);line-height:1.1;letter-spacing:var(--ls-tight);margin:0 0 24px}
+.lp-h2:last-child{margin-bottom:0}
+.lp-lead{font-size:clamp(1.0625rem,1.6vw,1.25rem);line-height:1.6;color:var(--color-text-muted);margin:0}
+.lp-dark .lp-lead{color:var(--color-text-inverse-muted)}
+.lp-accent{color:var(--color-accent)}
+.lp-dark .lp-accent{color:var(--clay-400)}
+
+/* ===== DOCK — menu flutuante inferior centralizado ===== */
+.lp-dock{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:var(--z-header);
+  display:flex;align-items:center;gap:6px;padding:8px 8px 8px 16px;
+  background:rgba(10,10,10,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--color-border-inverse);border-radius:var(--radius-pill);
+  box-shadow:var(--shadow-lg);max-width:calc(100vw - 32px)}
+.lp-dock__icon{width:24px;flex-shrink:0;display:flex}
+.lp-dock__icon svg{width:100%;height:auto}
+.lp-dock__divider{width:1px;height:22px;background:var(--color-border-inverse);margin:0 4px}
+.lp-dock__nav{display:flex;align-items:center;gap:2px}
+.lp-dock__nav a{font-size:var(--fs-body-sm);color:rgba(242,240,217,.72);padding:8px 14px;border-radius:var(--radius-pill);
+  white-space:nowrap;transition:color var(--dur-fast),background var(--dur-fast)}
+.lp-dock__nav a:hover{color:var(--cream-base);background:rgba(242,240,217,.08)}
+/* CTA aparece só quando começa a rolar */
+.lp-dock__cta{overflow:hidden;max-width:0;opacity:0;padding-inline:0!important;
+  transform:scale(.92);white-space:nowrap;
+  transition:max-width var(--dur-slow) var(--ease-out),opacity var(--dur-base),transform var(--dur-base),padding var(--dur-slow)}
+.lp-dock.show-cta .lp-dock__cta{max-width:300px;opacity:1;transform:none;padding-inline:20px!important}
+.lp-dock__burger{display:none}
+@media(max-width:767px){
+  .lp-dock{padding:7px;gap:4px}
+  .lp-dock__nav,.lp-dock__divider{display:none}
+  .lp-dock__burger{display:inline-flex;align-items:center;gap:7px;background:none;border:0;color:var(--cream-base);
+    cursor:pointer;font:inherit;font-size:var(--fs-body-sm);font-weight:500;padding:10px 16px;border-radius:var(--radius-pill)}
+  .lp-dock__burger i{width:16px;height:2px;background:currentColor;position:relative;transition:transform var(--dur-base)}
+  .lp-dock__burger i::before,.lp-dock__burger i::after{content:"";position:absolute;left:0;width:16px;height:2px;background:currentColor;transition:transform var(--dur-base),top var(--dur-base)}
+  .lp-dock__burger i::before{top:-5px}.lp-dock__burger i::after{top:5px}
+  .lp-dock__burger.is-open i{background:transparent}
+  .lp-dock__burger.is-open i::before{top:0;transform:rotate(45deg)}
+  .lp-dock__burger.is-open i::after{top:0;transform:rotate(-45deg)}
+  .lp-dock__cta{font-size:var(--fs-caption)}
+  .lp-dock.show-cta .lp-dock__cta{max-width:220px;padding-inline:16px!important}
+}
+/* Menu mobile expandido — sobe de baixo */
+.lp-dockmenu{position:fixed;left:16px;right:16px;bottom:86px;z-index:var(--z-overlay);
+  background:rgba(10,10,10,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--color-border-inverse);border-radius:var(--radius-lg);padding:8px;
+  opacity:0;visibility:hidden;transform:translateY(16px);
+  transition:opacity var(--dur-base),transform var(--dur-base),visibility var(--dur-base)}
+.lp-dockmenu.is-open{opacity:1;visibility:visible;transform:none}
+.lp-dockmenu a{display:block;padding:15px 16px;font-size:1.0625rem;color:var(--cream-base);border-radius:var(--radius-sm)}
+.lp-dockmenu a+a{border-top:1px solid var(--color-border-inverse)}
+@media(min-width:768px){.lp-dockmenu{display:none}}
+
+/* ===== HERO (vídeo + conteúdo nos cantos) ===== */
+.lp-hero{position:relative;min-height:100svh;display:flex;align-items:stretch;
+  background:linear-gradient(150deg,var(--olive-900),var(--neutral-950));overflow:hidden}
+.lp-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.lp-hero__overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(10,10,10,.62) 0%,rgba(10,10,10,.32) 32%,rgba(10,10,10,.78) 100%),
+    radial-gradient(900px 600px at 85% 0%,rgba(163,124,85,.22),transparent 60%)}
+.lp-hero__grid-lines{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.55;
+  background-image:linear-gradient(rgba(242,240,217,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,217,.05) 1px,transparent 1px);
+  background-size:80px 80px;-webkit-mask-image:linear-gradient(180deg,transparent,#000 40%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 40%,#000 70%,transparent)}
+.lp-hero__frame{position:relative;z-index:2;width:100%;max-width:var(--container-max);margin:0 auto;
+  padding:36px var(--container-pad-mobile) 120px;display:flex;flex-direction:column;justify-content:space-between;gap:48px;color:var(--cream-base)}
+@media(min-width:1024px){.lp-hero__frame{padding:44px var(--container-pad) 128px}}
+
+/* Barra superior: logo | assista o vídeo (esq) · stats centralizados */
+.lp-hero__bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.lp-hero__bar-left{display:flex;align-items:center;gap:18px;justify-self:start}
+.lp-hero__logo{width:84px;height:auto;display:block}
+.lp-hero__bar-div{width:1px;height:26px;background:var(--color-border-inverse)}
+.lp-hero__bar-right{justify-self:end}
+.lp-hero__stats{display:flex;gap:44px;justify-content:center}
+.lp-hero__stat{text-align:center}
+.lp-hero__stat b{display:block;font-size:1.25rem;font-weight:500;letter-spacing:-.01em;line-height:1.1}
+.lp-hero__stat span{font-size:var(--fs-caption);color:rgba(242,240,217,.6)}
+@media(max-width:767px){
+  .lp-hero__bar{grid-template-columns:1fr;justify-items:center;gap:22px}
+  .lp-hero__bar-left{justify-self:center}
+  .lp-hero__bar-right{justify-self:center}
+  .lp-hero__intro{text-align:center;margin-inline:auto}
+}
+.lp-hero__intro{max-width:38ch;font-size:1.25rem;font-weight:500;line-height:1.4;color:rgba(242,240,217,.82)}
+@media(min-width:768px){.lp-hero__intro{text-align:right;margin-left:auto}}
+
+.lp-hero__bottom{display:flex;flex-direction:column;gap:32px}
+@media(min-width:1024px){.lp-hero__bottom{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:48px}}
+.lp-hero h1{font-size:clamp(2.25rem,5vw,3.5rem);font-weight:500;line-height:1.02;letter-spacing:var(--ls-tighter);margin:0;max-width:16ch}
+.lp-hero h1 .muted{color:var(--clay-400)}
+.lp-hero__cta{display:flex;flex-direction:column;gap:20px;align-items:flex-start;flex-shrink:0}
+@media(min-width:1024px){.lp-hero__cta{align-items:flex-end;min-width:320px}}
+.lp-hero__rule{width:100%;height:1px;background:rgba(242,240,217,.22)}
+.lp-hero__cap{font-size:var(--fs-caption);color:rgba(242,240,217,.55)}
+.lp-hero__scroll{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,240,217,.45);display:flex;flex-direction:column;align-items:center;gap:8px}
+.lp-hero__scroll i{width:1px;height:34px;background:linear-gradient(rgba(242,240,217,.5),transparent);animation:scrolldn 2s var(--ease-out) infinite}
+@keyframes scrolldn{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Botão "Assista o vídeo" (hero, parte superior) */
+.lp-watch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font:inherit;font-size:var(--fs-body-sm);font-weight:500;color:var(--cream-base);
+  background:rgba(242,240,217,.08);border:1px solid var(--color-border-inverse);
+  padding:9px 16px 9px 10px;border-radius:var(--radius-pill);
+  transition:background var(--dur-fast),border-color var(--dur-fast),transform var(--dur-fast)}
+.lp-watch:hover{background:rgba(242,240,217,.14);border-color:var(--clay-500);transform:translateY(-1px)}
+.lp-watch__play{width:26px;height:26px;border-radius:50%;background:var(--clay-600);color:var(--cream-base);
+  display:grid;place-items:center;flex-shrink:0}
+.lp-watch__play svg{width:11px;height:11px;margin-left:1px}
+
+/* Modal de vídeo */
+.lp-modal{position:fixed;inset:0;z-index:var(--z-modal);display:none;align-items:center;justify-content:center;
+  padding:24px;background:rgba(10,10,10,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.lp-modal.is-open{display:flex;animation:modalin var(--dur-base) var(--ease-out)}
+@keyframes modalin{from{opacity:0}to{opacity:1}}
+.lp-modal__box{position:relative;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;
+  border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-xl);border:1px solid var(--color-border-inverse)}
+.lp-modal__box iframe,.lp-modal__box video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.lp-modal__close{position:absolute;top:-48px;right:0;width:40px;height:40px;border-radius:50%;cursor:pointer;
+  background:rgba(242,240,217,.1);border:1px solid var(--color-border-inverse);color:var(--cream-base);
+  display:grid;place-items:center;transition:background var(--dur-fast)}
+.lp-modal__close:hover{background:rgba(242,240,217,.2)}
+@media(max-width:560px){.lp-modal__close{top:-46px}}
+
+/* ===== PROVA SOCIAL / MARQUEE DE LOGOS ===== */
+.lp-proof{background:var(--color-bg-alt);color:var(--color-text);
+  padding-block:52px;overflow:hidden}
+.lp-proof__grid{display:grid;gap:28px;align-items:center}
+@media(min-width:900px){.lp-proof__grid{grid-template-columns:minmax(220px,300px) 1fr;gap:56px}}
+.lp-proof__label{font-size:1.25rem;line-height:1.3;color:var(--color-text);font-weight:500;margin:0}
+.lp-proof__label b{color:var(--clay-600);font-weight:500}
+.lp-marquee{position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%)}
+.lp-marquee__track{display:flex;align-items:center;gap:64px;width:max-content;animation:marquee 34s linear infinite}
+.lp-marquee:hover .lp-marquee__track{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.lp-logo-item{display:flex;align-items:center;gap:11px;color:var(--olive-900);opacity:.38;
+  white-space:nowrap;transition:opacity var(--dur-base) var(--ease-out)}
+.lp-logo-item:hover{opacity:1}
+.lp-logo-item svg{width:26px;height:26px;flex-shrink:0}
+.lp-logo-item span{font-size:1.0625rem;letter-spacing:.02em}
+@media(prefers-reduced-motion:reduce){.lp-marquee__track{animation:none}}
+
+/* ===== NARRATIVA (rail) ===== */
+.lp-narrative p{font-size:clamp(1.125rem,1.7vw,1.375rem);line-height:1.58;margin:0 0 22px}
+.lp-narrative p:last-child{margin-bottom:0}
+.lp-narrative .strong{font-weight:500}
+.lp-cream .lp-narrative{color:var(--olive-900)}
+.lp-dark .lp-narrative p{color:rgba(242,240,217,.84)}
+.lp-narrative .hl{color:var(--color-accent);font-weight:500}
+.lp-dark .lp-narrative .hl{color:var(--clay-400)}
+.lp-narrative .lead-strong{color:var(--cream-base);font-weight:500}
+.lp-cream .lp-narrative .lead-strong{color:var(--olive-900)}
+
+/* Citação inline + espaço de imagem (o dono) */
+.lp-pull{margin:48px 0 0;padding-top:40px;border-top:1px solid var(--color-border)}
+.lp-pull blockquote{font-size:clamp(1.375rem,2.6vw,1.875rem);font-weight:500;line-height:1.3;letter-spacing:var(--ls-tight);margin:0;color:var(--color-text);text-indent:-.4em}
+.lp-pull figcaption{margin-top:22px;font-size:var(--fs-caption);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-subtle)}
+.lp-figph{margin-top:36px;width:100%;aspect-ratio:16/10;border-radius:var(--radius-lg);
+  background:var(--cream-deep);border:1px dashed var(--color-border-strong);
+  display:grid;place-items:center;text-align:center}
+.lp-figph__inner{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--neutral-600)}
+.lp-figph svg{width:40px;height:40px;opacity:.55}
+.lp-figph span{font-size:var(--fs-caption);letter-spacing:.04em}
+
+/* Dobra "O contexto": imagem à esquerda + painel claro à direita */
+.lp-feature{display:grid;gap:20px}
+@media(min-width:900px){.lp-feature{grid-template-columns:minmax(300px,440px) 1fr;gap:24px;align-items:stretch}}
+.lp-feature__media{display:flex;min-height:460px}
+.lp-figph--tall{margin-top:0;width:100%;height:100%;aspect-ratio:auto;border-radius:var(--radius-xl)}
+.lp-feature__panel{background:var(--cream-deep);
+  border-radius:var(--radius-xl);padding:36px}
+@media(min-width:1024px){.lp-feature__panel{padding:60px}}
+.lp-feature__panel .lp-label{margin-bottom:28px}
+.lp-feature__panel .lp-pull{margin-top:36px;padding-top:32px}
+
+/* ===== ORIGEM (centralizado + foto do fundador no fundo) ===== */
+.lp-origem{position:relative;overflow:hidden;text-align:center;display:flex;align-items:center;min-height:80vh}
+.lp-origem__bg{position:absolute;inset:0;z-index:0;background:var(--neutral-950) center/cover no-repeat}
+/* TODO: foto do fundador → adicione no .lp-origem__bg:  style="background-image:url('assets/fundador.jpg')" */
+.lp-origem__bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.7) 60%,rgba(10,10,10,.82) 100%)}
+.lp-origem__ph{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:1;
+  font-size:var(--fs-caption);letter-spacing:.16em;text-transform:uppercase;color:rgba(242,240,217,.26)}
+.lp-origem__inner{position:relative;z-index:2;max-width:840px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
+.lp-origem .lp-label__sub{margin-inline:auto}
+.lp-origem .lp-h2{max-width:24ch;margin:0}
+.lp-origem .lp-narrative{max-width:760px;margin:0}
+.lp-origem .lp-narrative p{font-size:1.25rem;line-height:1.55} /* 20px */
+.lp-origem .lp-narrative p+p{margin-top:20px}
+
+/* ===== QUOTE ===== */
+.lp-quote{display:grid;gap:28px}
+@media(min-width:1024px){.lp-quote{grid-template-columns:200px minmax(0,1fr);gap:72px;align-items:start}}
+.lp-quote blockquote{font-size:clamp(1.375rem,2.6vw,1.875rem);font-weight:500;line-height:1.3;letter-spacing:var(--ls-tight);margin:0;color:var(--color-text);text-indent:-.4em}
+.lp-quote figcaption{margin-top:28px;font-size:var(--fs-caption);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-subtle)}
+
+/* ===== CONTROLE x VISIBILIDADE (colunas com divisor) ===== */
+.lp-duo{display:grid;gap:0;border-top:1px solid var(--color-border);margin-top:48px}
+@media(min-width:768px){.lp-duo{grid-template-columns:1fr 1fr}}
+.lp-duo__col{padding:40px 0}
+@media(min-width:768px){.lp-duo__col{padding:40px 56px}.lp-duo__col:first-child{padding-left:0;border-right:1px solid var(--color-border)}.lp-duo__col:last-child{padding-right:0}}
+.lp-duo__tag{font-size:var(--fs-caption);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-subtle);margin-bottom:14px}
+.lp-duo__word{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:500;letter-spacing:var(--ls-tight);margin:0 0 16px}
+.lp-duo__col--vis .lp-duo__word{color:var(--color-primary)}
+.lp-duo__col--ctrl .lp-duo__word{color:var(--color-text-subtle)}
+.lp-duo p{font-size:1.0625rem;line-height:1.6;color:var(--color-text-muted);margin:0}
+
+/* ===== TERCEIRA DOBRA: 3 colunas (texto | imagem | pontos) ===== */
+.lp-trio{display:grid;gap:20px}
+@media(min-width:1024px){.lp-trio{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr) minmax(0,1fr);gap:24px;align-items:stretch}}
+.lp-trio__text{display:flex;flex-direction:column;gap:22px}
+.lp-trio__text .lp-h2{margin:0}
+.lp-checks{display:flex;flex-wrap:wrap;gap:10px 20px}
+.lp-checks li{display:flex;align-items:center;gap:8px;font-size:var(--fs-caption);color:var(--neutral-700)}
+.lp-checks svg{width:16px;height:16px;color:var(--color-accent);flex-shrink:0}
+.lp-trio__body{font-size:1.0625rem;line-height:1.6;color:var(--color-text-muted);margin:0;max-width:38ch}
+.lp-textlink{margin-top:auto;display:inline-flex;align-items:center;gap:14px;font-weight:500;color:var(--color-text)}
+.lp-textlink__arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--color-border-strong);display:grid;place-items:center;
+  transition:background var(--dur-base) var(--ease-out),border-color var(--dur-base),color var(--dur-base),transform var(--dur-base)}
+.lp-textlink:hover .lp-textlink__arrow{background:var(--color-accent);border-color:var(--color-accent);color:var(--cream-base);transform:translate(2px,-2px)}
+.lp-textlink__arrow svg{width:16px;height:16px}
+
+.lp-imgcard{position:relative;height:100%;min-height:440px;border-radius:var(--radius-xl);overflow:hidden;
+  background:var(--cream-deep);display:grid;place-items:center}
+.lp-imgcard__ph{color:var(--neutral-500)}
+.lp-imgcard__ph svg{width:46px;height:46px}
+
+.lp-trio__points{display:flex;flex-direction:column;gap:20px;height:100%}
+.lp-point{background:var(--cream-deep);border-radius:var(--radius-xl);padding:28px;flex:1;display:flex;flex-direction:column}
+.lp-point__idx{font-size:var(--fs-caption);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)}
+.lp-point h3{font-size:var(--fs-24);font-weight:500;letter-spacing:var(--ls-tight);margin:12px 0 10px}
+.lp-point p{font-size:1.0625rem;line-height:1.55;color:var(--color-text-muted);margin:0}
+
+/* ===== LISTA NUMERADA (entregáveis — edge to edge) ===== */
+.lp-list{border-top:1px solid var(--color-border);margin-top:8px}
+.lp-list__row{display:grid;grid-template-columns:auto 1fr;gap:20px 24px;align-items:start;
+  padding:36px 0;border-bottom:1px solid var(--color-border);
+  transition:padding-left var(--dur-base) var(--ease-out)}
+@media(min-width:1024px){
+  .lp-list__row{grid-template-columns:64px minmax(0,1.05fr) minmax(0,1.35fr) auto;gap:48px;align-items:center}
+  .lp-list__row:hover{padding-left:12px}
+}
+.lp-list__num{font-size:var(--fs-caption);font-weight:500;color:var(--color-accent);letter-spacing:.1em;font-variant-numeric:tabular-nums;padding-top:4px}
+.lp-list__title{font-size:1.25rem;font-weight:500;letter-spacing:var(--ls-tight);margin:0;line-height:1.25;text-align:left}
+.lp-list__desc{font-size:1.0625rem;color:var(--color-text-muted);margin:0;line-height:1.55;text-align:left}
+.lp-cream .lp-list__desc{color:var(--neutral-700)}
+.lp-list__row .lp-list__desc{grid-column:1/-1}
+@media(min-width:1024px){.lp-list__row .lp-list__desc{grid-column:auto}}
+.lp-list__tag{display:none}
+@media(min-width:1024px){.lp-list__tag{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-caption);color:var(--color-text-subtle);white-space:nowrap}}
+.lp-list__tag svg{width:18px;height:18px;color:var(--color-accent)}
+
+/* ===== 4 PILARES (grid com divisores) ===== */
+.lp-pillars-intro{margin-bottom:48px}
+.lp-pcards{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:640px){.lp-pcards{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.lp-pcards{grid-template-columns:repeat(4,1fr);gap:18px}}
+.lp-pcard{position:relative;overflow:hidden;border-radius:var(--radius-xl);min-height:470px;
+  display:flex;flex-direction:column;justify-content:flex-end;color:var(--cream-base);
+  border:1px solid var(--color-border-inverse)}
+.lp-pcard__img{position:absolute;inset:0;z-index:0;background-color:var(--olive-800);
+  background-image:linear-gradient(165deg,var(--olive-700),var(--neutral-950));
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  transform:scale(var(--s,1));transition:transform var(--dur-slow) var(--ease-out)}
+.lp-pcard:hover .lp-pcard__img{--s:1.06}
+.lp-pcard__ph{position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:rgba(242,240,217,.22)}
+.lp-pcard__ph svg{width:40px;height:40px}
+.lp-pcard__scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(10,10,10,.92) 0%,rgba(10,10,10,.45) 45%,rgba(10,10,10,.05) 78%);transition:background var(--dur-base) var(--ease-out)}
+.lp-pcard:hover .lp-pcard__scrim{background:linear-gradient(to top,rgba(10,10,10,.93),rgba(10,10,10,.66) 60%,rgba(10,10,10,.4))}
+.lp-pcard__idx{position:absolute;top:16px;left:16px;z-index:3;font-size:var(--fs-caption);font-weight:500;letter-spacing:.14em;color:var(--clay-400);font-variant-numeric:tabular-nums}
+.lp-pcard__body{position:relative;z-index:2;padding:22px}
+.lp-pcard h3{font-size:var(--fs-24);font-weight:500;letter-spacing:var(--ls-tight);margin:0;color:var(--cream-base)}
+.lp-pcard__topics{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.lp-pcard__topics li{font-size:var(--fs-caption);color:rgba(242,240,217,.85);background:rgba(242,240,217,.1);border:1px solid var(--color-border-inverse);padding:4px 10px;border-radius:99px}
+.lp-pcard__desc{font-size:1rem;line-height:1.5;color:rgba(242,240,217,.82);margin:0;
+  max-height:0;opacity:0;overflow:hidden;
+  transition:max-height var(--dur-slow) var(--ease-out),opacity var(--dur-base) var(--ease-out),margin var(--dur-slow) var(--ease-out)}
+@media(hover:hover){.lp-pcard:hover .lp-pcard__desc{max-height:280px;opacity:1;margin-top:14px}}
+@media(hover:none){.lp-pcard__desc{max-height:280px;opacity:1;margin-top:14px}}
+
+/* ===== FAQ ===== */
+.lp-faq__item{border-top:1px solid var(--color-border)}
+.lp-faq__item:last-child{border-bottom:1px solid var(--color-border)}
+.lp-faq__q{width:100%;background:none;border:0;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:26px 0;font-family:inherit;font-size:clamp(1.0625rem,1.8vw,1.25rem);font-weight:500;color:var(--color-text);letter-spacing:-.01em}
+.lp-faq__icon{flex-shrink:0;width:28px;height:28px;position:relative}
+.lp-faq__icon::before,.lp-faq__icon::after{content:"";position:absolute;background:var(--color-accent);transition:transform var(--dur-base) var(--ease-out)}
+.lp-faq__icon::before{top:13px;left:4px;right:4px;height:2px}
+.lp-faq__icon::after{left:13px;top:4px;bottom:4px;width:2px}
+.lp-faq__item.is-open .lp-faq__icon::after{transform:scaleY(0)}
+.lp-faq__a{max-height:0;overflow:hidden;transition:max-height var(--dur-slow) var(--ease-out)}
+.lp-faq__a-inner{padding:0 0 28px;font-size:1.0625rem;line-height:1.6;color:var(--color-text-muted);max-width:72ch}
+.lp-faq__a-inner strong{color:var(--color-primary);font-weight:500}
+
+/* ===== CTA FINAL ===== */
+.lp-final{position:relative;overflow:hidden}
+.lp-final__grid{position:relative;display:grid;gap:40px;align-items:end}
+@media(min-width:1024px){.lp-final__grid{grid-template-columns:1.3fr .7fr}}
+.lp-final h2{font-size:clamp(1.75rem,3.4vw,2.75rem);font-weight:500;line-height:1.08;letter-spacing:var(--ls-tighter);margin:0;color:var(--color-text);max-width:18ch}
+.lp-final__side{display:flex;flex-direction:column;gap:24px}
+.lp-final__side p{font-size:1.0625rem;color:var(--color-text-muted);margin:0;line-height:1.6}
+.lp-final__contacts{margin-top:8px;display:flex;flex-direction:column;gap:10px;font-size:var(--fs-body-sm);color:var(--color-text-subtle)}
+.lp-final__contacts a{color:var(--color-text);transition:color var(--dur-fast)}
+.lp-final__contacts a:hover{color:var(--clay-700)}
+
+/* ===== FOOTER ===== */
+.lp-footer{background:var(--neutral-950);border-top:1px solid var(--color-border-inverse);padding:40px 0 112px;color:rgba(242,240,217,.5)}
+.lp-footer__inner{display:flex;flex-wrap:wrap;gap:28px 40px;align-items:center;justify-content:space-between}
+.lp-footer__brand svg{width:72px;height:auto;display:block}
+.lp-footer__loc{display:flex;align-items:flex-start;gap:12px}
+.lp-footer__loc svg{width:20px;height:20px;color:var(--clay-400);flex-shrink:0;margin-top:1px}
+.lp-footer__label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay-400);margin-bottom:5px}
+.lp-footer__loc p{margin:0;font-size:14px;line-height:1.5;color:rgba(242,240,217,.72);max-width:32ch}
+.lp-footer small{font-size:13px;max-width:34ch}
+
+/* ===== REVEAL (família de fades curada do animate.css — dispara 1x na entrada) ===== */
+.reveal{opacity:0}
+.reveal.is-visible{animation:fadeInUp .8s cubic-bezier(.16,1,.3,1) both}
+.reveal[data-anim="fade"].is-visible{animation-name:fadeIn}
+.reveal[data-anim="left"].is-visible{animation-name:fadeInLeft}
+.reveal[data-anim="right"].is-visible{animation-name:fadeInRight}
+.reveal[data-anim="down"].is-visible{animation-name:fadeInDown}
+.reveal[data-delay="1"].is-visible{animation-delay:.12s}
+.reveal[data-delay="2"].is-visible{animation-delay:.24s}
+.reveal[data-delay="3"].is-visible{animation-delay:.36s}
+@keyframes fadeInUp{from{opacity:0;transform:translate3d(0,42px,0)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeInDown{from{opacity:0;transform:translate3d(0,-32px,0)}to{opacity:1;transform:none}}
+@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-46px,0,0)}to{opacity:1;transform:none}}
+@keyframes fadeInRight{from{opacity:0;transform:translate3d(46px,0,0)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1}.reveal.is-visible{animation:none}.lp-hero__scroll i{animation:none}}
+
+/* cursor elipse direcional (segue o mouse e aponta para o movimento) */
+.lp-cursor{position:fixed;top:0;left:0;width:30px;height:30px;border-radius:50%;
+  border:1.5px solid var(--clay-500);background:rgba(163,124,85,.06);
+  pointer-events:none;z-index:9999;opacity:0;
+  transition:width .25s var(--ease-out),height .25s var(--ease-out),background .25s,border-color .25s,opacity .35s;
+  will-change:transform}
+.lp-cursor.is-active{width:58px;height:58px;background:rgba(163,124,85,.12);border-color:var(--clay-400)}
+@media(hover:none),(pointer:coarse){.lp-cursor{display:none}}
+</style>
+</head>
+<body class="ht">
+
+<!-- ============ DOCK — menu flutuante inferior ============ -->
+<div class="lp-dock" id="dock">
+  <a href="#topo" class="lp-dock__icon" aria-label="HT — topo">
+    <svg viewBox="0 0 220 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M96.1629 46.1086L86.0199 56.3525H34.6953L24.5522 46.1086V0H0V61.1564L7.50933 68.7241L0 76.27V137.426H24.5522V91.3178L34.6953 81.0958H86.0199L96.1629 91.3178V137.426H120.715V76.27L113.206 68.7241L120.715 61.1564L120.715 34.8147H96.1629L96.1629 46.1086Z" fill="#A37C55"/>
+      <path d="M219.599 24.7433V11.7355L207.954 0H107.808L96.1629 11.7355V24.7433H139.325L145.594 31.0608V137.426H170.146V31.0608L176.436 24.7433H219.599Z" fill="#A37C55"/>
+    </svg>
+  </a>
+  <span class="lp-dock__divider"></span>
+  <nav class="lp-dock__nav" aria-label="Navegação principal">
+    <a href="#problema">O problema</a>
+    <a href="#origem">A HT</a>
+    <a href="#diagnostico">O diagnóstico</a>
+    <a href="#pilares">4 pilares</a>
+    <a href="#faq">Dúvidas</a>
+  </nav>
+  <button class="lp-dock__burger" id="dockBurger" aria-label="Abrir menu" aria-expanded="false"><i></i>Menu</button>
+  <a href="#cta" class="ht-btn ht-btn--primary ht-btn--sm lp-dock__cta">Quero meu Diagnóstico</a>
+</div>
+<nav class="lp-dockmenu" id="dockMenu" aria-label="Navegação">
+  <a href="#problema">O problema</a>
+  <a href="#origem">A HT</a>
+  <a href="#diagnostico">O diagnóstico</a>
+  <a href="#pilares">4 pilares</a>
+  <a href="#faq">Dúvidas</a>
+</nav>
+
+<main id="topo">
+
+<!-- ============ HERO (vídeo sobreposto + cantos) ============ -->
+<section class="lp-hero">
+  <!-- ===== VÍDEO DE FUNDO (arquivo local) =====
+       Por enquanto usamos assets/hero/hero.mp4 (~32MB). Depois migramos
+       para YouTube, que é mais leve. Roda mudo, em loop e sem controles. -->
+  <video class="lp-hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero/hero.mp4" type="video/mp4">
+  </video>
+  <div class="lp-hero__overlay"></div>
+  <div class="lp-hero__grid-lines"></div>
+
+  <div class="lp-hero__frame">
+    <!-- BARRA SUPERIOR: logo HT | assista o vídeo (esq) · stats centralizados -->
+    <div class="lp-hero__bar reveal">
+      <div class="lp-hero__bar-left">
+        <a href="#topo" aria-label="HT — topo"><img class="lp-hero__logo" src="design-system/assets/ht-logo-dark-bg.svg" alt="HT"></a>
+        <span class="lp-hero__bar-div" aria-hidden="true"></span>
+        <button class="lp-watch" id="watchBtn" type="button" aria-label="Assistir o vídeo completo">
+          <span class="lp-watch__play" aria-hidden="true"><svg viewBox="0 0 12 12" fill="currentColor"><path d="M1 0.5v11l10-5.5z"/></svg></span>
+          Assista o vídeo
+        </button>
+      </div>
+      <div class="lp-hero__stats">
+        <div class="lp-hero__stat"><b>13 anos</b><span>dentro da operação</span></div>
+        <div class="lp-hero__stat"><b>4 pilares</b><span>toda a empresa, organizada</span></div>
+      </div>
+      <div class="lp-hero__bar-right">
+        <p class="lp-hero__intro">A HT existe para devolver ao empresário aquilo que nenhuma ferramenta consegue entregar sozinha: visibilidade sobre o negócio.</p>
+      </div>
+    </div>
+
+    <!-- BASE: headline (esq) · CTA (dir) -->
+    <div class="lp-hero__bottom reveal" data-delay="1">
+      <h1>Você parou de enxergar a <span class="muted">operação.</span></h1>
+      <div class="lp-hero__cta">
+        <a href="#cta" class="ht-btn ht-btn--primary ht-btn--lg lp-cta">
+          <span class="lp-cta__label">Quero meu Diagnóstico</span>
+          <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-hero__scroll" aria-hidden="true">role<i></i></div>
+</section>
+
+<!-- ============ PROVA SOCIAL / MARQUEE ============ -->
+<section class="lp-proof">
+  <div class="lp-container lp-proof__grid reveal">
+    <!-- TODO: troque "120" pelo número real de construtoras impactadas -->
+    <p class="lp-proof__label">Mais de <b>120</b> construtoras impactadas.</p>
+    <div class="lp-marquee" aria-label="Construtoras atendidas pela HT">
+      <div class="lp-marquee__track">
+        <!-- grupo 1 (logos placeholder — troque pelas logos reais dos clientes) -->
+        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg><span>Construtora Norte</span></div>
+        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 16H3z"/></svg><span>EngeBR</span></div>
+        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" transform="rotate(45 12 12)"/></svg><span>Pavix</span></div>
+        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8.7 5v10L12 22 3.3 17V7z"/></svg><span>Terrano</span></div>
+        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="9" width="4" height="12"/><rect x="10" y="4" width="4" height="17"/><rect x="17" y="13" width="4" height="8"/></svg><span>Obramax</span></div>
+        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h8l8 8-8 8H4l8-8z"/></svg><span>GME Engenharia</span></div>
+        <!-- grupo 2 (cópia idêntica p/ loop contínuo) -->
+        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg><span>Construtora Norte</span></div>
+        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 16H3z"/></svg><span>EngeBR</span></div>
+        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" transform="rotate(45 12 12)"/></svg><span>Pavix</span></div>
+        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8.7 5v10L12 22 3.3 17V7z"/></svg><span>Terrano</span></div>
+        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="9" width="4" height="12"/><rect x="10" y="4" width="4" height="17"/><rect x="17" y="13" width="4" height="8"/></svg><span>Obramax</span></div>
+        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h8l8 8-8 8H4l8-8z"/></svg><span>GME Engenharia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ O CONTEXTO (imagem esquerda + painel direita) ============ -->
+<section class="lp-section lp-cream" id="problema">
+  <div class="lp-container">
+    <div class="lp-feature">
+
+      <!-- IMAGEM À ESQUERDA (o dono) — troque por <img> quando tiver a foto -->
+      <div class="lp-feature__media reveal" data-anim="left">
+        <div class="lp-figph lp-figph--tall" role="img" aria-label="Espaço reservado para imagem do dono da construtora">
+          <div class="lp-figph__inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Espaço para imagem do dono</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL À DIREITA -->
+      <div class="lp-feature__panel reveal" data-anim="right" data-delay="1">
+        <span class="lp-label">O contexto.<span class="lp-label__sub">Toda construtora passa pela mesma história.</span></span>
+        <div class="lp-narrative">
+          <p>No começo, tudo funciona. O dono conhece cada obra. Sabe onde está cada equipamento. Conhece cada colaborador pelo nome. Lembra quanto entrou, quanto saiu e quais contratos estão dando resultado.</p>
+          <p>A empresa gira em torno dele. E isso funciona. Até que chega o crescimento: um contrato maior, mais obras, mais equipes… E, pela primeira vez, aquilo que sempre funcionou começa a falhar.</p>
+          <p class="strong">Não porque a empresa cresceu. Mas porque ninguém preparou a gestão para crescer junto.</p>
+        </div>
+        <figure class="lp-pull">
+          <blockquote>“Eu sinto que estou trabalhando mais do que nunca… e entendendo menos do que acontece dentro da minha empresa.”</blockquote>
+          <figcaption>O dono de toda construtora em crescimento</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTROLE x VISIBILIDADE (3 colunas) ============ -->
+<section class="lp-section lp-cream">
+  <div class="lp-container">
+    <div class="lp-trio">
+
+      <!-- COL 1 · TEXTO -->
+      <div class="lp-trio__text reveal">
+        <span class="lp-label">A distinção.<span class="lp-label__sub">O diagnóstico que muda a conversa.</span></span>
+        <h2 class="lp-h2">O problema não é a falta de controle. É a falta de <span class="lp-accent">visibilidade.</span></h2>
+        <p class="lp-trio__body">Existe uma diferença enorme entre essas duas coisas.</p>
+      </div>
+
+      <!-- COL 2 · IMAGEM (sem texto) -->
+      <div class="lp-trio__media reveal" data-delay="1">
+        <div class="lp-imgcard" role="img" aria-label="Espaço para imagem">
+          <div class="lp-imgcard__ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        </div>
+      </div>
+
+      <!-- COL 3 · PONTO 01 e PONTO 02 -->
+      <div class="lp-trio__points reveal" data-delay="2">
+        <div class="lp-point">
+          <span class="lp-point__idx">Ponto 01</span>
+          <h3>Controle</h3>
+          <p>É conseguir mandar. Dar a ordem, cobrar a entrega, definir o rumo. A maioria das construtoras tem isso de sobra.</p>
+        </div>
+        <div class="lp-point">
+          <span class="lp-point__idx">Ponto 02</span>
+          <h3>Visibilidade</h3>
+          <p>É conseguir enxergar. A maioria continua tentando controlar uma operação que já não consegue mais ver com clareza.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORIGEM / SOBRE (centralizado · foto do fundador no fundo) ============ -->
+<section class="lp-section lp-dark lp-origem" id="origem">
+  <!-- ESPAÇO PARA IMAGEM DE FUNDO (foto do fundador) — adicione style="background-image:url('assets/fundador.jpg')" no .lp-origem__bg -->
+  <div class="lp-origem__bg" aria-hidden="true"></div>
+  <span class="lp-origem__ph" aria-hidden="true">foto do fundador (fundo)</span>
+
+  <div class="lp-container lp-origem__inner reveal">
+    <span class="lp-label">A origem da HT.<span class="lp-label__sub">Nasceu dentro de uma construtora, não em uma sala de reunião.</span></span>
+    <h2 class="lp-h2">Uma metodologia criada por quem viveu o problema <span class="lp-accent">de dentro.</span></h2>
+    <div class="lp-narrative">
+      <p>Durante mais de 13 anos, nosso fundador viveu a rotina de uma empresa de obra pesada. Não como consultor, não como auditor, não fazendo visitas pontuais, ele estava <span class="hl">do lado de dentro da operação.</span></p>
+      <p>Primeiro organizando processos. Depois assumindo cada vez mais responsabilidades, até se tornar, na prática, o braço direito do dono. Viu novos contratos chegarem, novas equipes serem formadas, novas máquinas entrarem. Mas também viveu o outro lado: a desorganização, a perda de visibilidade, a crise e a difícil reconstrução.</p>
+      <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como a empresa enxerga, ou deixa de enxergar, a própria operação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIAGNÓSTICO / ENTREGÁVEIS ============ -->
+<section class="lp-section lp-cream" id="diagnostico">
+  <div class="lp-container">
+    <div class="lp-rail" style="margin-bottom:48px">
+      <div class="reveal"><span class="lp-label">O que você recebe.<span class="lp-label__sub">Dividindo a complexidade em entregáveis claros.</span></span></div>
+      <div class="reveal" data-delay="1">
+        <h2 class="lp-h2">O que você recebe no Diagnóstico Estratégico HT</h2>
+        <p class="lp-lead" style="max-width:60ch">Ao concluir o diagnóstico, você recebe uma visão estruturada da sua empresa, não um relatório que ninguém lê.</p>
+      </div>
+    </div>
+
+    <div class="lp-list">
+      <div class="lp-list__row reveal">
+        <span class="lp-list__num">01</span>
+        <h3 class="lp-list__title">Painel Executivo dos 4 Pilares</h3>
+        <p class="lp-list__desc">Uma leitura completa da operação organizada em Obra, Frota, Indústria e Administrativo.</p>
+        <span class="lp-list__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Visão geral</span>
+      </div>
+      <div class="lp-list__row reveal">
+        <span class="lp-list__num">02</span>
+        <h3 class="lp-list__title">Mapa dos principais gargalos</h3>
+        <p class="lp-list__desc">Identificação dos pontos que mais comprometem o crescimento da empresa, hoje.</p>
+        <span class="lp-list__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="3"/></svg>Riscos</span>
+      </div>
+      <div class="lp-list__row reveal">
+        <span class="lp-list__num">03</span>
+        <h3 class="lp-list__title">Termômetro de Visibilidade</h3>
+        <p class="lp-list__desc">Muito além dos indicadores: quais informações existem, são confiáveis, chegam na hora certa, ou nem estão sendo acompanhadas. É o que diferencia a HT de uma consultoria tradicional.</p>
+        <span class="lp-list__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V5a2 2 0 0 0-4 0v9.76a4 4 0 1 0 4 0z"/></svg>Exclusivo</span>
+      </div>
+      <div class="lp-list__row reveal">
+        <span class="lp-list__num">04</span>
+        <h3 class="lp-list__title">Priorização das ações</h3>
+        <p class="lp-list__desc">Nem todo problema precisa ser resolvido agora. Você recebe uma ordem clara: impacto imediato, o que planejar e o que traz maior retorno.</p>
+        <span class="lp-list__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h12M3 18h6"/></svg>Plano</span>
+      </div>
+      <div class="lp-list__row reveal">
+        <span class="lp-list__num">05</span>
+        <h3 class="lp-list__title">Reunião Estratégica</h3>
+        <p class="lp-list__desc">Todo o diagnóstico é apresentado em uma reunião conduzida pela equipe da HT, mostramos o significado de cada informação e os caminhos possíveis a partir dela.</p>
+        <span class="lp-list__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Apresentação</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 PILARES ============ -->
+<section class="lp-section lp-dark" id="pilares">
+  <div class="lp-container">
+    <div class="lp-rail lp-pillars-intro" style="margin-bottom:48px">
+      <div class="reveal"><span class="lp-label">A metodologia.<span class="lp-label__sub">Quatro pilares estratégicos.</span></span></div>
+      <div class="reveal" data-delay="1">
+        <h2 class="lp-h2">Os 4 pilares que transformam uma empresa confusa<br>em uma empresa gerida com clareza</h2>
+        <p class="lp-lead" style="max-width:62ch">Ao invés de tentar controlar centenas de informações ao mesmo tempo, organizamos toda a operação em quatro frentes.</p>
+      </div>
+    </div>
+
+    <!-- imagem de cada pilar: adicione style="background-image:url('assets/obra.jpg')" no .lp-pcard__img -->
+    <div class="lp-pcards">
+      <article class="lp-pcard reveal">
+        <div class="lp-pcard__img" aria-hidden="true"></div>
+        <div class="lp-pcard__ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <div class="lp-pcard__scrim" aria-hidden="true"></div>
+        <span class="lp-pcard__idx">01</span>
+        <div class="lp-pcard__body">
+          <h3>Obra</h3>
+          <ul class="lp-pcard__topics"><li>Contratos</li><li>Medições</li><li>Custos</li><li>Margem</li></ul>
+          <p class="lp-pcard__desc">Onde o resultado financeiro realmente acontece. Contratos, produção, medições, custos e margem, para responder na hora: quais obras são lucrativas, onde está o maior risco e qual contrato consome margem.</p>
+        </div>
+      </article>
+      <article class="lp-pcard reveal" data-delay="1">
+        <div class="lp-pcard__img" aria-hidden="true"></div>
+        <div class="lp-pcard__ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <div class="lp-pcard__scrim" aria-hidden="true"></div>
+        <span class="lp-pcard__idx">02</span>
+        <div class="lp-pcard__body">
+          <h3>Frota</h3>
+          <ul class="lp-pcard__topics"><li>Disponibilidade</li><li>Manutenção</li><li>Combustível</li><li>Custo/máquina</li></ul>
+          <p class="lp-pcard__desc">Máquinas podem gerar lucro, ou prejuízo. Tudo depende da visibilidade. Avaliamos disponibilidade, manutenção, combustível e custo por máquina. Cada equipamento vira uma unidade de negócio monitorada.</p>
+        </div>
+      </article>
+      <article class="lp-pcard reveal" data-delay="2">
+        <div class="lp-pcard__img" aria-hidden="true"></div>
+        <div class="lp-pcard__ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <div class="lp-pcard__scrim" aria-hidden="true"></div>
+        <span class="lp-pcard__idx">03</span>
+        <div class="lp-pcard__body">
+          <h3>Indústria</h3>
+          <ul class="lp-pcard__topics"><li>Produção</li><li>Insumos</li><li>Perdas</li><li>Qualidade</li></ul>
+          <p class="lp-pcard__desc">Usinas, pedreiras e unidades produtivas têm desafios próprios. Controlamos produção, insumos, perdas, qualidade e eficiência. Quando funciona, a empresa reduz desperdício e ganha previsibilidade.</p>
+        </div>
+      </article>
+      <article class="lp-pcard reveal" data-delay="3">
+        <div class="lp-pcard__img" aria-hidden="true"></div>
+        <div class="lp-pcard__ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <div class="lp-pcard__scrim" aria-hidden="true"></div>
+        <span class="lp-pcard__idx">04</span>
+        <div class="lp-pcard__body">
+          <h3>Administrativo</h3>
+          <ul class="lp-pcard__topics"><li>Compras</li><li>Financeiro</li><li>Fluxo de caixa</li><li>RH</li></ul>
+          <p class="lp-pcard__desc">Nenhuma operação cresce sem estrutura administrativa à altura. Compras, suprimentos, almoxarifado, RH, financeiro e fluxo de caixa. É o pilar que conecta a empresa e faz as decisões deixarem de ser reativas.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="lp-section lp-cream" id="faq">
+  <div class="lp-container lp-rail">
+    <div class="reveal"><span class="lp-label">Dúvidas frequentes.</span></div>
+    <div class="reveal" data-delay="1">
+      <div class="lp-faq">
+        <div class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">Minha empresa ainda utiliza planilhas. Posso fazer o diagnóstico?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Sim.</strong> Nossa metodologia funciona independentemente da ferramenta. Se a empresa usa ERP, usamos essas informações. Se usa planilhas, fazemos o levantamento nelas. E mesmo quando parte dos dados está só na experiência da equipe, conseguimos realizar o diagnóstico.</div></div>
+        </div>
+        <div class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">O diagnóstico serve apenas para empresas grandes?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Não.</strong> Ele é indicado para construtoras que já enfrentam desafios de crescimento e desejam estruturar a gestão antes que os problemas aumentem.</div></div>
+        </div>
+        <div class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">O diagnóstico obriga minha empresa a contratar a consultoria?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Não.</strong> O diagnóstico é um serviço independente. Ao final, você terá uma visão clara da situação da empresa e poderá decidir os próximos passos.</div></div>
+        </div>
+        <div class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">Quanto tempo leva?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner">O prazo varia conforme o porte e a complexidade da operação. Na reunião inicial apresentamos o cronograma completo.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="lp-section lp-cream lp-final" id="cta">
+  <div class="lp-container lp-final__grid">
+    <h2 class="reveal">O primeiro passo para a nova estrutura da sua empresa começa aqui.</h2>
+    <div class="lp-final__side reveal" data-delay="1">
+      <p>Volte a enxergar a sua operação. Agende seu Diagnóstico Estratégico com a equipe da HT.</p>
+      <a href="#cta" class="ht-btn ht-btn--primary ht-btn--lg lp-cta" style="align-self:flex-start">
+        <span class="lp-cta__label">Quero meu Diagnóstico</span>
+        <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
+      </a>
+      <div class="lp-final__contacts">
+        <a href="mailto:contato@ht.com.br">contato@ht.com.br</a>
+        <a href="tel:+5500000000000">(00) 0000-0000</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ MODAL DE VÍDEO ============ -->
+<div class="lp-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Vídeo da HT">
+  <div class="lp-modal__box">
+    <button class="lp-modal__close" id="modalClose" type="button" aria-label="Fechar vídeo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <video id="modalVideo" controls playsinline preload="none" title="Vídeo HT">
+      <source src="assets/hero/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="lp-footer">
+  <div class="lp-container lp-footer__inner">
+    <a href="#topo" class="lp-footer__brand" aria-label="HT — topo">
+      <svg viewBox="0 0 220 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M96.1629 46.1086L86.0199 56.3525H34.6953L24.5522 46.1086V0H0V61.1564L7.50933 68.7241L0 76.27V137.426H24.5522V91.3178L34.6953 81.0958H86.0199L96.1629 91.3178V137.426H120.715V76.27L113.206 68.7241L120.715 61.1564L120.715 34.8147H96.1629L96.1629 46.1086Z" fill="#A37C55"/>
+        <path d="M219.599 24.7433V11.7355L207.954 0H107.808L96.1629 11.7355V24.7433H139.325L145.594 31.0608V137.426H170.146V31.0608L176.436 24.7433H219.599Z" fill="#A37C55"/>
+      </svg>
+    </a>
+
+    <!-- ESPAÇO PARA LOCALIZAÇÃO DA EMPRESA — substitua pelo endereço real -->
+    <div class="lp-footer__loc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div>
+        <span class="lp-footer__label">Localização</span>
+        <p>Rua / Av., nº · Bairro · Cidade/UF · CEP 00000-000</p>
+      </div>
+    </div>
+
+    <small>© 2026 HT · Gestão e Diagnóstico Estratégico para construtoras. Todos os direitos reservados.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Dock: CTA aparece só ao começar a rolar para baixo */
+  var dock=document.getElementById('dock');
+  var onScroll=function(){dock.classList.toggle('show-cta',window.scrollY>120);};
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  /* Dock: menu mobile (sobe de baixo) */
+  var dockBurger=document.getElementById('dockBurger'),dockMenu=document.getElementById('dockMenu');
+  dockBurger.addEventListener('click',function(){var o=dockMenu.classList.toggle('is-open');dockBurger.classList.toggle('is-open',o);dockBurger.setAttribute('aria-expanded',o);});
+  dockMenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){dockMenu.classList.remove('is-open');dockBurger.classList.remove('is-open');dockBurger.setAttribute('aria-expanded',false);});});
+  document.addEventListener('click',function(e){if(dockMenu.classList.contains('is-open')&&!dockMenu.contains(e.target)&&!dockBurger.contains(e.target)){dockMenu.classList.remove('is-open');dockBurger.classList.remove('is-open');dockBurger.setAttribute('aria-expanded',false);}});
+
+  /* Modal de vídeo (abre o vídeo completo, com som e controles) */
+  var watchBtn=document.getElementById('watchBtn'),modal=document.getElementById('videoModal'),
+      modalVideo=document.getElementById('modalVideo'),modalClose=document.getElementById('modalClose');
+  function openVideo(){modal.classList.add('is-open');document.body.style.overflow='hidden';try{modalVideo.currentTime=0;modalVideo.play();}catch(e){}}
+  function closeVideo(){modal.classList.remove('is-open');document.body.style.overflow='';modalVideo.pause();}
+  watchBtn.addEventListener('click',openVideo);
+  modalClose.addEventListener('click',closeVideo);
+  modal.addEventListener('click',function(e){if(e.target===modal)closeVideo();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('is-open'))closeVideo();});
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  document.querySelectorAll('.lp-faq__item').forEach(function(item){
+    var btn=item.querySelector('.lp-faq__q'),ans=item.querySelector('.lp-faq__a');
+    btn.addEventListener('click',function(){
+      var open=item.classList.contains('is-open');
+      document.querySelectorAll('.lp-faq__item.is-open').forEach(function(o){if(o!==item){o.classList.remove('is-open');o.querySelector('.lp-faq__q').setAttribute('aria-expanded',false);o.querySelector('.lp-faq__a').style.maxHeight=null;}});
+      if(open){item.classList.remove('is-open');btn.setAttribute('aria-expanded',false);ans.style.maxHeight=null;}
+      else{item.classList.add('is-open');btn.setAttribute('aria-expanded',true);ans.style.maxHeight=ans.scrollHeight+'px';}
+    });
+  });
+})();
+</script>
+
+<!-- ===== MUDANÇA DE COR DAS DOBRAS NO SCROLL (cross-fade 1.2s) ===== -->
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('section, .lp-footer'));
+  if(!secs.length) return;
+  function colorOf(el){ return (el.classList.contains('lp-cream')||el.classList.contains('lp-proof')) ? '#F2F0D9' : '#0A0A0A'; }
+  document.documentElement.classList.add('colorfx');
+  document.body.style.backgroundColor=colorOf(secs[0]);
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ document.body.style.backgroundColor=colorOf(e.target); } });
+  },{rootMargin:'-50% 0px -50% 0px',threshold:0}); /* dobra que cruza o centro define a cor */
+  secs.forEach(function(s){io.observe(s);});
+})();
+</script>
+
+<!-- ===== CURSOR ELIPSE DIRECIONAL (leve: 1 elemento, rAF só ao mover) ===== -->
+<script>
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(!matchMedia('(pointer:fine)').matches) return;
+  var el=document.createElement('div'); el.className='lp-cursor'; document.body.appendChild(el);
+  var mx=innerWidth/2, my=innerHeight/2, px=mx, py=my, raf=0, shown=false;
+  var hot='a,button,.lp-pcard,.lp-faq__q,.ht-btn,[role=button]';
+  addEventListener('mousemove',function(e){
+    mx=e.clientX; my=e.clientY;
+    if(!shown){shown=true;el.style.opacity='1';}
+    if(!raf)raf=requestAnimationFrame(loop);
+  },{passive:true});
+  document.addEventListener('mouseover',function(e){if(e.target.closest&&e.target.closest(hot))el.classList.add('is-active');},true);
+  document.addEventListener('mouseout', function(e){if(e.target.closest&&e.target.closest(hot))el.classList.remove('is-active');},true);
+  document.addEventListener('mouseleave',function(){el.style.opacity='0';});
+  document.addEventListener('mouseenter',function(){if(shown)el.style.opacity='1';});
+  function loop(){
+    var nx=px+(mx-px)*0.2, ny=py+(my-py)*0.2;
+    var vx=nx-px, vy=ny-py; px=nx; py=ny;
+    var speed=Math.min(Math.sqrt(vx*vx+vy*vy),20);
+    if(speed>0.6){
+      var ang=Math.atan2(vy,vx)*180/Math.PI;
+      var sx=(1+speed*0.03).toFixed(3), sy=(1-speed*0.018).toFixed(3);
+      el.style.transform='translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px) translate(-50%,-50%) rotate('+ang.toFixed(1)+'deg) scale('+sx+','+sy+')';
+      raf=requestAnimationFrame(loop);
+    }else{
+      el.style.transform='translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px) translate(-50%,-50%)';
+      raf=0;
+    }
+  }
+})();
+</script>
+
+</body>
+</html>

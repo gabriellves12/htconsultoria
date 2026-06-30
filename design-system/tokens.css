@@ -1,0 +1,266 @@
+/* ============================================================
+   HT — DESIGN SYSTEM · TOKENS
+   Diagnóstico Estratégico para construtoras
+   ------------------------------------------------------------
+   Fonte da verdade de cores, tipografia, espaçamento, raios,
+   sombras e motion. Sem dependência de build — basta importar
+   este arquivo (Elementor / WordPress / HTML puro):
+
+     <link rel="stylesheet" href="design-system/tokens.css">
+
+   Todo componente da landing deve consumir estas variáveis.
+   Nunca hardcode HEX fora daqui.
+   ============================================================ */
+
+:root {
+  /* ----------------------------------------------------------
+     1. CORES — PALETA BRUTA (marca)
+     Extraídas da paleta oficial e dos logos.
+     ---------------------------------------------------------- */
+  --ht-olive:      #3E4A36; /* verde oliva — primária (maior bloco da paleta) */
+  --ht-clay:       #A37C55; /* terracota/bronze — secundária / accent (cor do ícone) */
+  --ht-cream:      #F2F0D9; /* creme — superfície clara / texto sobre escuro */
+  --ht-gray:       #979797; /* cinza neutro */
+  --ht-ink:        #0F0F0F; /* quase-preto — texto */
+  --ht-ink-deep:   #0A0A0A; /* preto absoluto — fundos escuros */
+  --ht-off-white:  #FAFAFA; /* off-white — fundo padrão */
+
+  /* ----------------------------------------------------------
+     2. ESCALAS DERIVADAS
+     ---------------------------------------------------------- */
+
+  /* Oliva (primária) */
+  --olive-50:  #F0F2EE;
+  --olive-100: #DCE0D8;
+  --olive-200: #B8BEB2;
+  --olive-300: #8C9685;
+  --olive-400: #687560;
+  --olive-500: #4C5A42;
+  --olive-600: #3E4A36; /* BASE */
+  --olive-700: #353F2E;
+  --olive-800: #2A3325;
+  --olive-900: #1E241A;
+
+  /* Clay / terracota (secundária / accent) */
+  --clay-50:   #F8F3EE;
+  --clay-100:  #F0E7DC;
+  --clay-200:  #E2D2C0;
+  --clay-300:  #D3BBA1;
+  --clay-400:  #C2A485;
+  --clay-500:  #B28F6C;
+  --clay-600:  #A37C55; /* BASE */
+  --clay-700:  #876544;
+  --clay-800:  #6B4F35;
+  --clay-900:  #4F3A26;
+
+  /* Neutros (cinza + creme + tinta) */
+  --neutral-0:   #FFFFFF;
+  --neutral-50:  #FAFAFA; /* off-white */
+  --neutral-100: #F1F1EE;
+  --neutral-200: #E2E2DE;
+  --neutral-300: #C9C9C4;
+  --neutral-400: #ADADA9;
+  --neutral-500: #979797; /* gray base */
+  --neutral-600: #6E6E6C;
+  --neutral-700: #4A4A48;
+  --neutral-800: #2A2A29;
+  --neutral-900: #0F0F0F; /* ink */
+  --neutral-950: #0A0A0A; /* ink deep */
+
+  /* Creme (superfície quente) */
+  --cream-base: #F2F0D9;
+  --cream-soft: #F7F6E8;
+  --cream-deep: #E6E3C4;
+
+  /* ----------------------------------------------------------
+     3. CORES SEMÂNTICAS (use estas nos componentes)
+     ---------------------------------------------------------- */
+  /* Marca */
+  --color-primary:        var(--olive-600);
+  --color-primary-hover:  var(--olive-700);
+  --color-primary-active: var(--olive-800);
+  --color-accent:         var(--clay-600);
+  --color-accent-hover:   var(--clay-700);
+  --color-accent-active:  var(--clay-800);
+
+  /* Fundos / superfícies */
+  --color-bg:             var(--neutral-50);   /* fundo padrão claro */
+  --color-bg-alt:         var(--cream-base);   /* seção alternada quente */
+  --color-bg-dark:        var(--neutral-950);  /* seção escura */
+  --color-surface:        var(--neutral-0);    /* cards sobre fundo claro */
+  --color-surface-dark:   var(--olive-800);    /* cards sobre fundo escuro */
+  --color-surface-cream:  var(--cream-base);
+
+  /* Texto */
+  --color-text:           var(--neutral-900);  /* texto principal sobre claro */
+  --color-text-muted:     var(--neutral-600);  /* texto secundário sobre claro */
+  --color-text-subtle:    var(--neutral-500);  /* legendas / auxiliar */
+  --color-text-inverse:   var(--cream-base);   /* texto sobre escuro */
+  --color-text-inverse-muted: rgba(242,240,217,0.66);
+  --color-text-on-accent: var(--cream-base);   /* texto sobre clay */
+  --color-text-on-primary: var(--cream-base);  /* texto sobre oliva */
+
+  /* Bordas / divisores */
+  --color-border:         rgba(15,15,15,0.12);
+  --color-border-strong:  rgba(15,15,15,0.22);
+  --color-border-inverse: rgba(242,240,217,0.18);
+  --color-border-accent:  var(--clay-600);
+
+  /* CTA (call to action) — accent terracota é o gatilho de conversão */
+  --color-cta-bg:         var(--clay-600);
+  --color-cta-bg-hover:   var(--clay-700);
+  --color-cta-text:       var(--cream-base);
+
+  /* Estados / semântica funcional (derivados da paleta) */
+  --color-success:        #5A7247;
+  --color-success-bg:     #EAF0E4;
+  --color-warning:        #C8923A;
+  --color-warning-bg:     #F8EFD8;
+  --color-danger:         #B4452F;
+  --color-danger-bg:      #F7E4DE;
+  --color-info:           var(--olive-400);
+  --color-info-bg:        var(--olive-50);
+
+  /* Foco (acessibilidade) */
+  --color-focus-ring:     var(--clay-600);
+
+  /* ----------------------------------------------------------
+     4. TIPOGRAFIA
+     Família única do projeto: Instrument Sans.
+     Pesos: 400 / 500 / 600 / 700.
+     ---------------------------------------------------------- */
+  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-base: var(--font-sans);
+
+  /* Pesos */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Escala de tamanhos — regra de 8 (múltiplos de 8; 14 = exceção legenda)
+     Tokens nomeados por TAMANHO + aliases por PAPEL (alinhados à skill de página) */
+  --fs-14: 0.875rem;  /* 14px — legenda / auxiliar (exceção tolerada) */
+  --fs-16: 1rem;      /* 16px — corpo pequeno */
+  --fs-18: 1.125rem;  /* 18px — corpo */
+  --fs-24: 1.5rem;    /* 24px — H2 / subtítulo */
+  --fs-32: 2rem;      /* 32px — título de seção grande */
+  --fs-40: 2.5rem;    /* 40px — H1 (copy longa) */
+  --fs-48: 3rem;      /* 48px — H1 padrão */
+  --fs-56: 3.5rem;    /* 56px — display (hero impacto) */
+  --fs-64: 4rem;      /* 64px — display XL (uso pontual desktop) */
+
+  /* Aliases por papel (consumidos pela landing) */
+  --fs-display:  var(--fs-56);
+  --fs-h1:       var(--fs-48);
+  --fs-h1-long:  var(--fs-40);
+  --fs-h2:       var(--fs-24);
+  --fs-h3:       var(--fs-18);
+  --fs-body:     var(--fs-18);
+  --fs-body-sm:  var(--fs-16);
+  --fs-caption:  var(--fs-14);
+  --fs-eyebrow:  var(--fs-14);
+
+  /* Altura de linha */
+  --lh-tight:   1.05; /* display */
+  --lh-snug:    1.18; /* headings */
+  --lh-heading: 1.25;
+  --lh-normal:  1.5;  /* corpo */
+  --lh-relaxed: 1.65; /* texto longo */
+
+  /* Tracking (letter-spacing) */
+  --ls-tighter: -0.03em; /* display grande */
+  --ls-tight:   -0.015em;/* headings */
+  --ls-normal:  0;
+  --ls-wide:    0.04em;
+  --ls-eyebrow: 0.14em;  /* eyebrow / caps */
+
+  /* ----------------------------------------------------------
+     5. ESPAÇAMENTO — grid de 20px (35px = exceção da 1ª dobra)
+     ---------------------------------------------------------- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;  /* unidade base do grid */
+  --space-6:   24px;
+  --space-hero: 35px; /* exceção: respiro entre blocos da 1ª dobra */
+  --space-8:   40px;
+  --space-10:  60px;
+  --space-12:  80px;  /* mínimo entre dobras */
+  --space-14:  100px; /* padrão entre dobras */
+  --space-16:  120px;
+  --space-20:  160px;
+
+  /* Espaço vertical entre seções (dobras) */
+  --section-gap:        var(--space-14);
+  --section-gap-mobile: var(--space-12);
+
+  /* ----------------------------------------------------------
+     6. LAYOUT / CONTAINER
+     ---------------------------------------------------------- */
+  --container-max:      1280px;
+  --container-narrow:   880px;  /* blocos de leitura / texto longo */
+  --container-pad:      40px;   /* padding lateral desktop */
+  --container-pad-mobile: 24px; /* padding lateral mobile */
+
+  /* Breakpoints (referência — usar em media queries) */
+  --bp-mobile:  767px;
+  --bp-tablet:  1023px;
+  --bp-desktop: 1024px;
+
+  /* ----------------------------------------------------------
+     7. RAIOS — arquitetônico/sóbrio (cantos contidos)
+     ---------------------------------------------------------- */
+  --radius-none: 0;
+  --radius-xs:  2px;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  20px;
+  --radius-pill: 999px;
+
+  /* ----------------------------------------------------------
+     8. SOMBRAS — discretas, tom quente terroso
+     ---------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(30,36,26,0.06);
+  --shadow-sm: 0 2px 6px rgba(30,36,26,0.08);
+  --shadow-md: 0 8px 20px rgba(30,36,26,0.10);
+  --shadow-lg: 0 18px 44px rgba(30,36,26,0.14);
+  --shadow-xl: 0 32px 70px rgba(30,36,26,0.20);
+  --shadow-accent: 0 12px 30px rgba(163,124,85,0.28); /* glow clay p/ CTA */
+
+  /* ----------------------------------------------------------
+     9. MOTION
+     ---------------------------------------------------------- */
+  --dur-fast:    150ms;
+  --dur-base:    250ms;
+  --dur-slow:    400ms;
+  --dur-reveal:  600ms; /* entrada de dobra */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* ----------------------------------------------------------
+     10. CAMADAS (z-index)
+     ---------------------------------------------------------- */
+  --z-base:    1;
+  --z-sticky:  100;
+  --z-header:  500;
+  --z-overlay: 900;
+  --z-modal:   1000;
+  --z-toast:   1100;
+}
+
+/* ============================================================
+   PREFERÊNCIA DE MOVIMENTO REDUZIDO
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+    --dur-reveal: 0ms;
+  }
+}

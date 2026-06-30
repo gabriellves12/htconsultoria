@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HT · Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* ---- Página do style guide (escopo local, não faz parte do DS) ---- */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: var(--lh-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  /* Layout shell com sidebar */
+  .shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
+  .nav {
+    position: sticky; top: 0; align-self: start; height: 100vh;
+    background: var(--neutral-950); color: var(--cream-base);
+    padding: 32px 24px; overflow-y: auto;
+    border-right: 1px solid var(--color-border-inverse);
+  }
+  .nav__brand { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
+  .nav__brand svg { width: 40px; height: auto; }
+  .nav__brand b { font-weight: 700; letter-spacing: -0.02em; font-size: 18px; }
+  .nav__brand span { display:block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-400); margin-top:2px;}
+  .nav a {
+    display: block; text-decoration: none; color: rgba(242,240,217,.62);
+    font-size: 14px; padding: 8px 0; transition: color .2s var(--ease-out), padding-left .2s var(--ease-out);
+    border-left: 2px solid transparent; padding-left: 12px; margin-left: -12px;
+  }
+  .nav a:hover { color: var(--cream-base); padding-left: 18px; border-left-color: var(--clay-500); }
+  .nav__group { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--olive-300); margin: 26px 0 8px; }
+
+  main { padding: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 56px; }
+  section { padding: 88px 0; border-bottom: 1px solid var(--color-border); }
+  section:last-child { border-bottom: 0; }
+
+  .kicker { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-600); font-weight: 600; margin: 0 0 14px; }
+  h2.title { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; line-height: 1.05; }
+  .lead { font-size: 18px; color: var(--color-text-muted); max-width: 60ch; margin: 0 0 40px; line-height: 1.6; }
+
+  /* HERO */
+  .hero {
+    background: var(--neutral-950);
+    color: var(--cream-base);
+    padding: 120px 56px 100px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(900px 500px at 80% -10%, rgba(163,124,85,.28), transparent 60%),
+      radial-gradient(700px 500px at 0% 120%, rgba(62,74,54,.55), transparent 55%);
+    pointer-events:none;
+  }
+  .hero__inner { max-width: 1080px; margin: 0 auto; position: relative; }
+  .hero__logo { width: 320px; max-width: 70%; height: auto; margin-bottom: 44px; }
+  .hero h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.0; margin: 0 0 20px; }
+  .hero h1 em { font-style: normal; font-weight: 700; color: var(--clay-400); }
+  .hero p { font-size: 19px; max-width: 56ch; color: rgba(242,240,217,.72); line-height: 1.6; margin: 0; }
+  .hero__meta { display: flex; gap: 40px; margin-top: 48px; flex-wrap: wrap; }
+  .hero__meta div { border-left: 2px solid var(--clay-500); padding-left: 16px; }
+  .hero__meta dt { font-size: 12px; letter-spacing:.12em; text-transform: uppercase; color: var(--olive-300); margin-bottom:4px;}
+  .hero__meta dd { margin: 0; font-size: 16px; font-weight: 500; }
+
+  /* COLOR */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 18px; }
+  .swatch { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); background: var(--color-surface); }
+  .swatch__chip { height: 96px; }
+  .swatch__body { padding: 12px 14px; }
+  .swatch__name { font-weight: 600; font-size: 14px; }
+  .swatch__hex { font-size: 13px; color: var(--color-text-muted); font-variant-numeric: tabular-nums; text-transform: uppercase; }
+  .swatch__var { font-size: 11px; color: var(--color-text-subtle); margin-top: 2px; font-family: ui-monospace, monospace; }
+
+  .scale-row { display: grid; grid-template-columns: repeat(10, 1fr); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 6px; }
+  .scale-cell { height: 72px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .scale-label { font-size: 13px; font-weight: 600; margin: 22px 0 8px; }
+
+  /* TYPE */
+  .type-row { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid var(--color-border); }
+  .type-row:first-of-type { border-top: 0; }
+  .type-spec { font-size: 13px; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+  .type-spec b { display:block; color: var(--color-text); font-size: 14px; }
+  .weights { display:flex; gap: 28px; flex-wrap: wrap; margin-top: 12px;}
+  .weights div { font-size: 30px; letter-spacing: -0.01em; }
+  .weights small { display:block; font-size: 12px; color: var(--color-text-muted); font-weight: 400; letter-spacing: .04em; }
+
+  /* SPACING */
+  .space-row { display:flex; align-items:center; gap: 20px; padding: 8px 0; }
+  .space-bar { background: var(--clay-300); height: 18px; border-radius: 3px; }
+  .space-row code { font-size: 13px; color: var(--color-text-muted); min-width: 130px; font-family: ui-monospace, monospace; }
+
+  /* RADII / SHADOW */
+  .tile-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 22px; }
+  .tile { background: var(--color-surface); border:1px solid var(--color-border); padding: 20px; border-radius: var(--radius-md); text-align:center; font-size: 13px; color: var(--color-text-muted);}
+  .tile .box { height: 70px; background: var(--olive-100); border:1px solid var(--olive-200); margin-bottom: 14px; }
+  .shadow-tile { background: var(--color-surface); height: 90px; border-radius: var(--radius-md); margin-bottom: 12px; }
+
+  /* COMPONENTS */
+  .demo { display:flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
+  .demo-dark { background: var(--neutral-950); padding: 28px; border-radius: var(--radius-lg); }
+  .card-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 20px; }
+  .logo-board { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 18px; }
+  .logo-cell { border-radius: var(--radius-md); padding: 32px; display:flex; align-items:center; justify-content:center; min-height: 140px; border: 1px solid var(--color-border); position: relative; }
+  .logo-cell svg, .logo-cell img { max-width: 80%; height: auto; }
+  .logo-cell span { position:absolute; bottom:10px; left:14px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; opacity:.55;}
+  .on-dark { background: var(--neutral-950); }
+  .on-olive { background: var(--olive-600); }
+  .on-cream { background: var(--cream-base); }
+  .on-white { background: #fff; }
+  .clearspace { background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 50% / 18px 18px; }
+
+  table.tok { width:100%; border-collapse: collapse; font-size: 14px; }
+  table.tok th, table.tok td { text-align:left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); }
+  table.tok th { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--color-text-subtle); }
+  table.tok code { font-family: ui-monospace, monospace; font-size: 12px; background: var(--olive-50); padding: 2px 6px; border-radius: 4px; }
+
+  .note { background: var(--cream-base); border-left: 3px solid var(--clay-600); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 15px; color: var(--olive-800); }
+
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    .nav { display:none; }
+    .wrap { padding: 0 24px; }
+    .hero { padding: 72px 24px; }
+    .scale-row { grid-template-columns: repeat(5, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <!-- ============ NAV ============ -->
+  <aside class="nav">
+    <div class="nav__brand">
+      <svg viewBox="0 0 220 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M96.1629 46.1086L86.0199 56.3525H34.6953L24.5522 46.1086V0H0V61.1564L7.50933 68.7241L0 76.27V137.426H24.5522V91.3178L34.6953 81.0958H86.0199L96.1629 91.3178V137.426H120.715V76.27L113.206 68.7241L120.715 61.1564L120.715 34.8147H96.1629L96.1629 46.1086Z" fill="#A37C55"/>
+        <path d="M219.599 24.7433V11.7355L207.954 0H107.808L96.1629 11.7355V24.7433H139.325L145.594 31.0608V137.426H170.146V31.0608L176.436 24.7433H219.599Z" fill="#A37C55"/>
+      </svg>
+      <span><b>HT</b><span>Design System</span></span>
+    </div>
+    <div class="nav__group">Fundamentos</div>
+    <a href="#marca">Marca</a>
+    <a href="#logo">Logo &amp; variantes</a>
+    <a href="#cores">Cores</a>
+    <a href="#escalas">Escalas</a>
+    <a href="#semantica">Cores semânticas</a>
+    <a href="#tipografia">Tipografia</a>
+    <div class="nav__group">Espaço &amp; forma</div>
+    <a href="#espacamento">Espaçamento</a>
+    <a href="#raios">Raios</a>
+    <a href="#sombras">Sombras</a>
+    <a href="#motion">Motion</a>
+    <div class="nav__group">Componentes</div>
+    <a href="#botoes">Botões</a>
+    <a href="#chips">Chips &amp; cards</a>
+    <a href="#tokens">Tabela de tokens</a>
+  </aside>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div class="hero__inner">
+        <svg class="hero__logo" viewBox="0 0 602 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="HT">
+          <path d="M239.522 135.25C235.613 135.25 232.289 134.46 229.167 132.497C226.248 130.535 223.888 128.19 222.137 125.055C220.563 121.92 219.599 118.403 219.599 114.477C219.599 110.17 220.563 106.627 222.137 103.492C223.888 100.357 226.248 98.0121 229.167 96.0495C232.289 94.4692 235.614 93.2967 239.319 93.2967C242.644 93.2967 245.359 94.0869 247.897 95.2593C250.435 96.4318 252.593 98.012 254.141 100.357C255.715 102.32 256.882 105.072 257.263 107.799H249.649C249.065 105.455 247.897 103.874 246.146 102.32C244.395 100.739 242.238 100.357 239.522 100.357C237.187 100.357 235.233 100.739 233.482 101.937C231.73 103.11 230.36 104.69 229.573 106.653C228.609 108.997 227.999 111.368 227.999 114.503C227.999 117.256 228.583 119.6 229.573 121.945C230.36 123.908 231.73 125.463 233.482 126.661C235.233 127.833 237.187 128.623 239.522 128.623C242.263 128.623 244.395 127.833 246.146 126.661C247.897 125.08 249.065 123.143 249.649 120.773H257.263C256.882 123.908 255.689 126.253 254.141 128.623C252.39 130.586 250.435 132.141 247.897 133.339C245.359 134.511 242.441 135.301 239.497 135.301L239.522 135.25Z" fill="#F2F0D9"/>
+          <path d="M280.892 135.25C276.78 135.25 273.075 134.46 270.156 132.497C267.034 130.535 264.496 128.19 262.923 125.055C261.171 121.92 260.181 118.403 260.181 114.07C260.181 110.144 261.146 106.627 262.923 103.492C264.674 100.357 267.034 98.0121 270.156 96.0495C273.075 94.4692 276.78 93.2967 280.892 93.2967C285.003 93.2967 288.506 94.4692 291.627 96.0495C294.749 98.0121 297.084 100.357 298.861 103.492C300.637 106.627 301.399 110.144 301.399 114.07C301.399 118.377 300.612 121.92 298.861 125.055C297.11 128.19 294.749 130.535 291.627 132.497C288.506 134.46 285.003 135.25 280.892 135.25ZM280.892 128.598C283.227 128.598 285.384 127.808 287.135 126.635C289.089 125.463 290.46 123.882 291.424 121.538C292.592 119.575 292.998 116.822 292.998 114.095C292.998 109.788 292.034 106.245 289.673 103.9C287.338 101.555 284.394 100.382 280.892 100.382C277.186 100.382 274.267 101.555 272.11 103.9C269.775 106.653 268.608 109.788 268.608 114.095C268.608 116.848 269.191 119.575 270.181 121.538C271.146 123.882 272.719 125.463 274.47 126.635C276.425 127.808 278.582 128.598 280.917 128.598H280.892Z" fill="#F2F0D9"/>
+          <path d="M307.642 94.0869H315.459V103.9H315.84V134.486H307.642V94.0869ZM336.144 134.46V108.59C336.144 105.837 335.357 103.874 333.987 102.32C332.616 101.147 330.662 100.357 327.946 100.357C325.611 100.357 323.454 100.739 321.703 101.937C319.952 103.11 318.378 104.282 317.414 106.245C316.449 108.207 315.84 110.17 315.84 112.897L314.876 103.084C316.246 100.331 318.2 97.6042 320.916 96.024C323.657 94.4437 326.779 93.2713 330.484 93.2713C334.774 93.2713 338.098 94.4437 340.636 97.1964C342.971 99.5413 344.139 102.676 344.139 106.602V134.435H336.144V134.46Z" fill="#F2F0D9"/>
+          <path d="M367.565 135.25C362.489 135.25 358.2 134.078 355.078 131.733C352.159 129.388 350.382 126.253 349.799 121.92H357.413C357.793 124.265 358.783 126.227 360.535 127.4C362.286 128.572 364.824 129.362 367.768 129.362C370.509 129.362 372.463 128.572 374.011 127.782C375.382 126.61 375.966 125.437 375.966 123.857C375.966 122.277 375.585 121.512 374.798 120.34C374.011 119.55 372.463 118.759 370.103 118.377L363.656 116.797C359.545 116.007 356.626 114.452 354.672 112.489C352.717 110.527 351.753 108.182 351.753 105.047C351.753 101.529 353.124 98.7767 355.662 96.4318C358.403 94.4692 362.108 93.2967 366.778 93.2967C371.448 93.2967 375.179 94.4692 378.098 96.4318C381.016 98.7767 382.59 101.529 382.971 105.455H375.356C375.153 103.492 374.189 101.937 372.615 101.147C371.245 99.9746 369.113 99.5668 366.575 99.5668C364.24 99.5668 362.286 99.9492 361.118 100.739C359.748 101.529 359.164 102.702 359.164 104.257C359.164 105.811 359.545 106.602 360.535 107.392C361.499 108.564 363.276 108.972 365.407 109.737L372.032 111.317C375.737 112.107 378.656 113.662 380.61 116.032C382.564 117.995 383.529 120.747 383.529 123.475C383.529 127.4 382.158 130.127 379.417 132.09C376.499 134.052 372.59 135.225 367.514 135.225L367.565 135.25Z" fill="#F2F0D9"/>
+          <path d="M402.513 135.25C399.772 135.25 397.437 134.868 395.483 133.67C393.326 132.497 391.777 130.917 390.788 128.955C389.62 126.992 389.036 124.647 389.036 121.894V94.0614H397.234V119.932C397.234 123.067 397.818 125.029 399.188 126.202C400.559 127.782 402.513 128.547 405.051 128.547C407.386 128.547 409.34 127.757 411.092 126.584C412.843 125.794 414.213 124.239 415.203 122.277C416.168 120.696 416.777 118.352 416.777 116.007L417.741 125.412C416.371 128.547 414.416 130.892 411.701 132.472C409.163 134.435 406.041 135.225 402.539 135.225L402.513 135.25ZM417.158 134.46V125.055H416.777V94.0869H424.772V134.46H417.158Z" fill="#F2F0D9"/>
+          <path d="M434.315 134.46V77.6216H442.512V134.46H434.315Z" fill="#F2F0D9"/>
+          <path d="M447.588 100.739V94.0869H475.1V100.739H447.588ZM469.263 135.25C464.568 135.25 461.065 134.078 458.908 132.115C456.751 129.77 455.583 126.635 455.583 122.302V85.0641L463.781 81.929V122.302C463.781 124.647 464.365 126.227 465.354 127.018C466.522 128.19 468.273 128.598 470.811 128.598C471.776 128.598 472.562 128.598 473.349 128.215C473.933 128.215 474.72 127.833 475.1 127.833V134.486C474.517 134.486 473.73 134.868 472.765 134.868C471.598 135.25 470.43 135.25 469.263 135.25Z" fill="#F2F0D9"/>
+          <path d="M497.384 135.25C493.273 135.25 489.567 134.46 486.648 132.497C483.527 130.535 480.989 128.19 479.415 125.055C477.664 121.92 476.674 118.403 476.674 114.07C476.674 110.144 477.638 106.627 479.415 103.492C481.166 100.357 483.527 98.0121 486.648 96.0495C489.567 94.4692 493.273 93.2967 497.384 93.2967C501.496 93.2967 504.998 94.4692 508.12 96.0495C511.242 98.0121 513.577 100.357 515.353 103.492C517.104 106.627 517.891 110.144 517.891 114.07C517.891 118.377 517.104 121.92 515.353 125.055C513.602 128.19 511.242 130.535 508.12 132.497C504.998 134.46 501.496 135.25 497.384 135.25ZM497.384 128.598C499.719 128.598 501.876 127.808 503.628 126.635C505.582 125.463 506.952 123.882 507.917 121.538C509.084 119.575 509.49 116.822 509.49 114.095C509.49 109.788 508.526 106.245 506.166 103.9C503.831 101.555 500.887 100.382 497.384 100.382C493.679 100.382 490.76 101.555 488.603 103.9C486.268 106.653 485.1 109.788 485.1 114.095C485.1 116.848 485.684 119.575 486.674 121.538C487.638 123.882 489.212 125.463 490.963 126.635C492.917 127.808 495.075 128.598 497.41 128.598H497.384Z" fill="#F2F0D9"/>
+          <path d="M524.109 134.46V94.0869H531.926V104.282H532.307V134.46H524.109ZM532.307 113.305L531.343 103.9C532.307 100.382 533.881 98.0121 536.216 96.0495C538.551 94.4692 541.292 93.2967 544.414 93.2967C545.581 93.2967 546.571 93.6791 546.952 93.6791V101.529C546.749 101.529 546.368 101.147 545.784 101.147H544.21C540.099 101.147 537.18 102.32 535.226 104.282C533.272 106.245 532.307 109.38 532.307 113.305Z" fill="#F2F0D9"/>
+          <path d="M551.241 86.2365V77.2137H560.403V86.2365H551.241ZM551.647 134.46V94.0869H559.845V134.46H551.647Z" fill="#F2F0D9"/>
+          <path d="M579.743 135.25C575.631 135.25 572.332 134.078 569.971 132.115C567.433 130.153 566.266 127.4 566.266 123.882C566.266 120.365 567.636 117.612 570.174 115.65C572.712 113.305 576.418 112.132 581.113 111.342L594.387 108.997V114.885L582.281 116.848C579.743 117.23 577.585 118.02 576.418 118.81C575.047 119.983 574.26 121.563 574.26 123.118C574.26 125.08 574.844 126.635 576.215 127.425C577.382 128.215 579.134 129.006 581.494 129.006C584.616 129.006 587.357 128.215 589.311 126.661C591.468 125.08 592.433 123.143 592.433 120.773L593.397 126.661C592.61 129.413 590.859 131.376 588.524 132.931C585.986 134.511 583.067 135.276 579.743 135.276V135.25ZM593.397 134.46C593.194 133.288 593.016 132.497 593.016 131.325C592.813 129.745 592.813 128.572 592.813 126.61H592.433V107.392C592.433 105.047 591.849 103.084 590.478 101.912C589.311 100.331 587.154 99.9491 584.438 99.9491C581.9 99.9491 579.743 100.331 577.991 101.529C576.418 102.32 575.453 103.874 575.25 105.837H567.433C567.814 102.32 569.591 99.1845 572.509 96.8141C575.631 94.4692 579.743 93.2967 584.819 93.2967C589.895 93.2967 593.981 94.877 596.519 97.2219C599.26 99.5668 600.427 103.11 600.427 107.799V126.61C600.427 127.782 600.63 129.362 600.63 130.535C600.833 131.707 601.214 132.88 601.417 134.46H593.397Z" fill="#F2F0D9"/>
+          <path d="M96.1629 46.1086L86.0199 56.3525H34.6953L24.5522 46.1086V0H0V61.1564L7.50933 68.7241L0 76.27V137.426H24.5522V91.3178L34.6953 81.0958H86.0199L96.1629 91.3178V137.426H120.715V76.27L113.206 68.7241L120.715 61.1564L120.715 34.8147H96.1629L96.1629 46.1086Z" fill="#A37C55"/>
+          <path d="M219.599 24.7433V11.7355L207.954 0H107.808L96.1629 11.7355V24.7433H139.325L145.594 31.0608V137.426H170.146V31.0608L176.436 24.7433H219.599Z" fill="#A37C55"/>
+        </svg>
+        <h1>Visibilidade vira <em>sistema</em>.</h1>
+        <p>O design system da HT traduz a metodologia de Diagnóstico Estratégico para construtoras em uma linguagem visual sóbria, terrosa e arquitetônica — pronta para a landing page.</p>
+        <dl class="hero__meta">
+          <div><dt>Tipografia</dt><dd>Instrument Sans</dd></div>
+          <div><dt>Cor primária</dt><dd>Oliva #3E4A36</dd></div>
+          <div><dt>Accent</dt><dd>Terracota #A37C55</dd></div>
+          <div><dt>Grid</dt><dd>20px · container 1280</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <!-- ============ MARCA ============ -->
+    <section id="marca"><div class="wrap">
+      <p class="kicker">01 — Marca</p>
+      <h2 class="title">HT</h2>
+      <p class="lead">Consultoria de gestão para construtoras de obra pesada. A marca nasceu dentro da operação, não na sala de reunião — e a identidade reflete isso: materiais honestos, tons de terra e canteiro, geometria firme. Nada decorativo; tudo estrutural.</p>
+      <div class="note">A personalidade visual equilibra <b>autoridade</b> (oliva profundo, tipografia firme) e <b>calor humano</b> (terracota, creme). Use oliva como base de confiança e terracota com parcimônia, sempre apontando para a ação.</div>
+    </div></section>
+
+    <!-- ============ LOGO ============ -->
+    <section id="logo"><div class="wrap">
+      <p class="kicker">02 — Logo &amp; variantes</p>
+      <h2 class="title">Logotipo</h2>
+      <p class="lead">O monograma HT é a redução vertical do logo. Use o lockup completo sempre que houver espaço; o ícone para usos compactos (favicon, avatar, selo). Respeite a área de respiro e o tamanho mínimo.</p>
+
+      <div class="logo-board" style="margin-bottom:32px">
+        <div class="logo-cell on-dark"><img src="assets/ht-logo-dark-bg.svg" alt="Logo HT para fundo escuro"><span style="color:#F2F0D9">fundo escuro</span></div>
+        <div class="logo-cell on-cream"><img src="assets/ht-logo-light-bg.svg" alt="Logo HT para fundo claro"><span style="color:#3E4A36">fundo claro</span></div>
+        <div class="logo-cell on-olive"><img src="assets/ht-logo-dark-bg.svg" alt="Logo HT sobre oliva"><span style="color:#F2F0D9">sobre oliva</span></div>
+      </div>
+
+      <h3 style="font-size:18px;margin:0 0 16px">Ícone / monograma</h3>
+      <div class="logo-board">
+        <div class="logo-cell on-dark"><img src="assets/ht-icon-clay.svg" style="max-width:64px" alt="Ícone terracota"><span style="color:#F2F0D9">clay / escuro</span></div>
+        <div class="logo-cell on-cream"><img src="assets/ht-icon-olive.svg" style="max-width:64px" alt="Ícone oliva"><span style="color:#3E4A36">oliva / claro</span></div>
+        <div class="logo-cell on-olive"><img src="assets/ht-icon-cream.svg" style="max-width:64px" alt="Ícone creme"><span style="color:#F2F0D9">creme / oliva</span></div>
+        <div class="logo-cell clearspace"><img src="assets/ht-icon-olive.svg" style="max-width:64px;outline:1px dashed #A37C55;outline-offset:22px" alt="Área de respiro"><span style="color:#3E4A36">área de respiro</span></div>
+      </div>
+      <div class="note" style="margin-top:28px">
+        <b>Regras de uso.</b> Respiro mínimo = altura da barra horizontal do "H" em todos os lados. Tamanho mínimo: ícone 24px, lockup 120px de largura. Não rotacione, não aplique sombra, não altere as cores fora das variantes acima, não distorça a proporção.
+      </div>
+    </div></section>
+
+    <!-- ============ CORES ============ -->
+    <section id="cores"><div class="wrap">
+      <p class="kicker">03 — Cores</p>
+      <h2 class="title">Paleta da marca</h2>
+      <p class="lead">Sete cores fundamentais extraídas da paleta oficial. Oliva e terracota carregam a identidade; creme e off-white sustentam as superfícies; tinta e cinza dão contraste e estrutura.</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch__chip" style="background:#3E4A36"></div><div class="swatch__body"><div class="swatch__name" style="color:#3E4A36">Oliva</div><div class="swatch__hex">#3E4A36</div><div class="swatch__var">--ht-olive</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#A37C55"></div><div class="swatch__body"><div class="swatch__name" style="color:#A37C55">Terracota</div><div class="swatch__hex">#A37C55</div><div class="swatch__var">--ht-clay</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#F2F0D9"></div><div class="swatch__body"><div class="swatch__name">Creme</div><div class="swatch__hex">#F2F0D9</div><div class="swatch__var">--ht-cream</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#FAFAFA;border-bottom:1px solid #eee"></div><div class="swatch__body"><div class="swatch__name">Off-white</div><div class="swatch__hex">#FAFAFA</div><div class="swatch__var">--ht-off-white</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#979797"></div><div class="swatch__body"><div class="swatch__name">Cinza</div><div class="swatch__hex">#979797</div><div class="swatch__var">--ht-gray</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#0F0F0F"></div><div class="swatch__body"><div class="swatch__name">Tinta</div><div class="swatch__hex">#0F0F0F</div><div class="swatch__var">--ht-ink</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#0A0A0A"></div><div class="swatch__body"><div class="swatch__name">Preto</div><div class="swatch__hex">#0A0A0A</div><div class="swatch__var">--ht-ink-deep</div></div></div>
+      </div>
+    </div></section>
+
+    <!-- ============ ESCALAS ============ -->
+    <section id="escalas"><div class="wrap">
+      <p class="kicker">04 — Escalas derivadas</p>
+      <h2 class="title">Tons &amp; nuances</h2>
+      <p class="lead">Cada cor de marca se desdobra em 10 passos (50–900) para estados, fundos, bordas e hierarquia. Use os passos claros para superfícies e os escuros para texto e profundidade.</p>
+
+      <div class="scale-label">Oliva — <code>--olive-50 … --olive-900</code></div>
+      <div class="scale-row">
+        <div class="scale-cell" style="background:#F0F2EE;color:#3E4A36">50</div>
+        <div class="scale-cell" style="background:#DCE0D8;color:#3E4A36">100</div>
+        <div class="scale-cell" style="background:#B8BEB2;color:#3E4A36">200</div>
+        <div class="scale-cell" style="background:#8C9685;color:#1E241A">300</div>
+        <div class="scale-cell" style="background:#687560;color:#fff">400</div>
+        <div class="scale-cell" style="background:#4C5A42;color:#fff">500</div>
+        <div class="scale-cell" style="background:#3E4A36;color:#fff">600</div>
+        <div class="scale-cell" style="background:#353F2E;color:#fff">700</div>
+        <div class="scale-cell" style="background:#2A3325;color:#fff">800</div>
+        <div class="scale-cell" style="background:#1E241A;color:#fff">900</div>
+      </div>
+
+      <div class="scale-label">Terracota — <code>--clay-50 … --clay-900</code></div>
+      <div class="scale-row">
+        <div class="scale-cell" style="background:#F8F3EE;color:#6B4F35">50</div>
+        <div class="scale-cell" style="background:#F0E7DC;color:#6B4F35">100</div>
+        <div class="scale-cell" style="background:#E2D2C0;color:#6B4F35">200</div>
+        <div class="scale-cell" style="background:#D3BBA1;color:#4F3A26">300</div>
+        <div class="scale-cell" style="background:#C2A485;color:#4F3A26">400</div>
+        <div class="scale-cell" style="background:#B28F6C;color:#fff">500</div>
+        <div class="scale-cell" style="background:#A37C55;color:#fff">600</div>
+        <div class="scale-cell" style="background:#876544;color:#fff">700</div>
+        <div class="scale-cell" style="background:#6B4F35;color:#fff">800</div>
+        <div class="scale-cell" style="background:#4F3A26;color:#fff">900</div>
+      </div>
+
+      <div class="scale-label">Neutros — <code>--neutral-50 … --neutral-950</code></div>
+      <div class="scale-row">
+        <div class="scale-cell" style="background:#FAFAFA;color:#0F0F0F;border:1px solid #eee">50</div>
+        <div class="scale-cell" style="background:#F1F1EE;color:#0F0F0F">100</div>
+        <div class="scale-cell" style="background:#E2E2DE;color:#0F0F0F">200</div>
+        <div class="scale-cell" style="background:#C9C9C4;color:#0F0F0F">300</div>
+        <div class="scale-cell" style="background:#ADADA9;color:#0F0F0F">400</div>
+        <div class="scale-cell" style="background:#979797;color:#fff">500</div>
+        <div class="scale-cell" style="background:#6E6E6C;color:#fff">600</div>
+        <div class="scale-cell" style="background:#4A4A48;color:#fff">700</div>
+        <div class="scale-cell" style="background:#2A2A29;color:#fff">800</div>
+        <div class="scale-cell" style="background:#0F0F0F;color:#fff">900</div>
+      </div>
+    </div></section>
+
+    <!-- ============ SEMÂNTICA ============ -->
+    <section id="semantica"><div class="wrap">
+      <p class="kicker">05 — Cores semânticas</p>
+      <h2 class="title">Aplicação com intenção</h2>
+      <p class="lead">Nos componentes, consuma sempre os tokens semânticos — nunca o HEX cru. Assim a paleta evolui sem retrabalho.</p>
+      <table class="tok">
+        <thead><tr><th>Token</th><th>Valor</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td><code>--color-primary</code></td><td>oliva 600</td><td>Base de marca, títulos em destaque, botão oliva</td></tr>
+          <tr><td><code>--color-accent</code> / <code>--color-cta-bg</code></td><td>clay 600</td><td>Call-to-action, links, ênfase pontual</td></tr>
+          <tr><td><code>--color-bg</code></td><td>off-white</td><td>Fundo padrão das seções claras</td></tr>
+          <tr><td><code>--color-bg-alt</code></td><td>creme</td><td>Seção alternada / quente</td></tr>
+          <tr><td><code>--color-bg-dark</code></td><td>preto</td><td>Seções de impacto / hero</td></tr>
+          <tr><td><code>--color-text</code></td><td>tinta</td><td>Texto principal sobre claro</td></tr>
+          <tr><td><code>--color-text-inverse</code></td><td>creme</td><td>Texto sobre fundo escuro</td></tr>
+          <tr><td><code>--color-success</code></td><td>#5A7247</td><td>Confirmações / estado positivo</td></tr>
+          <tr><td><code>--color-warning</code></td><td>#C8923A</td><td>Atenção</td></tr>
+          <tr><td><code>--color-danger</code></td><td>#B4452F</td><td>Erro / risco</td></tr>
+        </tbody>
+      </table>
+      <div class="demo" style="margin-top:28px">
+        <span class="ht-chip" style="background:#EAF0E4;color:#5A7247;border-color:#cdddc0">● success</span>
+        <span class="ht-chip" style="background:#F8EFD8;color:#9c7126;border-color:#ecd9ad">● warning</span>
+        <span class="ht-chip" style="background:#F7E4DE;color:#B4452F;border-color:#eccabf">● danger</span>
+      </div>
+    </div></section>
+
+    <!-- ============ TIPOGRAFIA ============ -->
+    <section id="tipografia"><div class="wrap">
+      <p class="kicker">06 — Tipografia</p>
+      <h2 class="title">Instrument Sans</h2>
+      <p class="lead">Família única do projeto. Geométrica-humanista, neutra na medida certa para um discurso técnico que precisa soar confiável. Hierarquia construída por tamanho, peso e tracking — tamanhos na regra de 8.</p>
+
+      <div class="weights">
+        <div style="font-weight:400">Aa <small>Regular · 400</small></div>
+        <div style="font-weight:500">Aa <small>Medium · 500</small></div>
+        <div style="font-weight:600">Aa <small>Semibold · 600</small></div>
+        <div style="font-weight:700">Aa <small>Bold · 700</small></div>
+      </div>
+
+      <div style="margin-top:48px">
+        <div class="type-row"><div class="type-spec"><b>Display</b>56–64px<br>700 · ls -0.03em</div><div style="font-size:56px;font-weight:700;letter-spacing:-0.03em;line-height:1.05">Visibilidade sobre o negócio</div></div>
+        <div class="type-row"><div class="type-spec"><b>H1</b>48px (40 longo)<br>700 · ls -0.015em</div><div style="font-size:48px;font-weight:700;letter-spacing:-0.015em;line-height:1.1">Você parou de enxergar a operação</div></div>
+        <div class="type-row"><div class="type-spec"><b>H2</b>24px<br>600 · ls -0.015em</div><div style="font-size:24px;font-weight:600;letter-spacing:-0.015em">Os 4 pilares da metodologia HT</div></div>
+        <div class="type-row"><div class="type-spec"><b>H3</b>18px<br>600</div><div style="font-size:18px;font-weight:600">Termômetro de Visibilidade</div></div>
+        <div class="type-row"><div class="type-spec"><b>Corpo</b>18px<br>400 · lh 1.65</div><div style="font-size:18px;line-height:1.65;max-width:62ch">Controle é conseguir mandar. Visibilidade é conseguir enxergar. A maioria das construtoras continua tentando controlar uma operação que já não consegue enxergar.</div></div>
+        <div class="type-row"><div class="type-spec"><b>Eyebrow</b>14px<br>600 · ls 0.14em · caps</div><div style="font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#A37C55">Diagnóstico Estratégico</div></div>
+        <div class="type-row"><div class="type-spec"><b>Legenda</b>14px<br>400</div><div style="font-size:14px;color:#6E6E6C">Texto auxiliar e notas de rodapé.</div></div>
+      </div>
+    </div></section>
+
+    <!-- ============ ESPAÇAMENTO ============ -->
+    <section id="espacamento"><div class="wrap">
+      <p class="kicker">07 — Espaçamento</p>
+      <h2 class="title">Grid de 20px</h2>
+      <p class="lead">Ritmo vertical baseado em múltiplos de 20px. Entre dobras: 80–100px. A exceção é o respiro de 35px dentro da primeira dobra.</p>
+      <div>
+        <div class="space-row"><code>--space-1 · 4</code><div class="space-bar" style="width:4px"></div></div>
+        <div class="space-row"><code>--space-2 · 8</code><div class="space-bar" style="width:8px"></div></div>
+        <div class="space-row"><code>--space-4 · 16</code><div class="space-bar" style="width:16px"></div></div>
+        <div class="space-row"><code>--space-5 · 20 (base)</code><div class="space-bar" style="width:20px;background:#A37C55"></div></div>
+        <div class="space-row"><code>--space-6 · 24</code><div class="space-bar" style="width:24px"></div></div>
+        <div class="space-row"><code>--space-hero · 35</code><div class="space-bar" style="width:35px;background:#876544"></div></div>
+        <div class="space-row"><code>--space-8 · 40</code><div class="space-bar" style="width:40px"></div></div>
+        <div class="space-row"><code>--space-10 · 60</code><div class="space-bar" style="width:60px"></div></div>
+        <div class="space-row"><code>--space-12 · 80</code><div class="space-bar" style="width:80px"></div></div>
+        <div class="space-row"><code>--space-14 · 100 (dobras)</code><div class="space-bar" style="width:100px;background:#A37C55"></div></div>
+        <div class="space-row"><code>--space-16 · 120</code><div class="space-bar" style="width:120px"></div></div>
+      </div>
+    </div></section>
+
+    <!-- ============ RAIOS ============ -->
+    <section id="raios"><div class="wrap">
+      <p class="kicker">08 — Raios</p>
+      <h2 class="title">Cantos contidos</h2>
+      <p class="lead">Linguagem arquitetônica pede cantos firmes. Raios pequenos a médios; o pill fica reservado para chips e botões pílula.</p>
+      <div class="tile-grid">
+        <div class="tile"><div class="box" style="border-radius:2px"></div>xs · 2px</div>
+        <div class="tile"><div class="box" style="border-radius:4px"></div>sm · 4px</div>
+        <div class="tile"><div class="box" style="border-radius:8px"></div>md · 8px</div>
+        <div class="tile"><div class="box" style="border-radius:12px"></div>lg · 12px</div>
+        <div class="tile"><div class="box" style="border-radius:20px"></div>xl · 20px</div>
+        <div class="tile"><div class="box" style="border-radius:999px"></div>pill · 999px</div>
+      </div>
+    </div></section>
+
+    <!-- ============ SOMBRAS ============ -->
+    <section id="sombras"><div class="wrap">
+      <p class="kicker">09 — Sombras</p>
+      <h2 class="title">Profundidade discreta</h2>
+      <p class="lead">Sombras com tom quente terroso (não cinza puro). Use com moderação — elevação real, nunca decorativa.</p>
+      <div class="tile-grid">
+        <div class="tile"><div class="shadow-tile" style="box-shadow:var(--shadow-xs)"></div>xs</div>
+        <div class="tile"><div class="shadow-tile" style="box-shadow:var(--shadow-sm)"></div>sm</div>
+        <div class="tile"><div class="shadow-tile" style="box-shadow:var(--shadow-md)"></div>md</div>
+        <div class="tile"><div class="shadow-tile" style="box-shadow:var(--shadow-lg)"></div>lg</div>
+        <div class="tile"><div class="shadow-tile" style="box-shadow:var(--shadow-xl)"></div>xl</div>
+        <div class="tile"><div class="shadow-tile" style="box-shadow:var(--shadow-accent)"></div>accent (CTA)</div>
+      </div>
+    </div></section>
+
+    <!-- ============ MOTION ============ -->
+    <section id="motion"><div class="wrap">
+      <p class="kicker">10 — Motion</p>
+      <h2 class="title">Movimento com propósito</h2>
+      <p class="lead">Entrada de dobra em fade-in + slide-up (600ms, ease-out). CTA com micro-pulse. Listas em stagger. Tudo respeita <code>prefers-reduced-motion</code>.</p>
+      <table class="tok">
+        <thead><tr><th>Token</th><th>Valor</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td><code>--dur-fast</code></td><td>150ms</td><td>Hover, foco</td></tr>
+          <tr><td><code>--dur-base</code></td><td>250ms</td><td>Botões, cards</td></tr>
+          <tr><td><code>--dur-slow</code></td><td>400ms</td><td>Transições maiores</td></tr>
+          <tr><td><code>--dur-reveal</code></td><td>600ms</td><td>Entrada de dobra</td></tr>
+          <tr><td><code>--ease-out</code></td><td>cubic-bezier(.16,1,.3,1)</td><td>Padrão de entrada</td></tr>
+        </tbody>
+      </table>
+    </div></section>
+
+    <!-- ============ BOTÕES ============ -->
+    <section id="botoes"><div class="wrap ht">
+      <p class="kicker">11 — Botões</p>
+      <h2 class="title">Ação</h2>
+      <p class="lead">O CTA primário é terracota — o único elemento que deve gritar "clique aqui". Variantes oliva, contorno e ghost para hierarquias secundárias.</p>
+      <div class="demo">
+        <a class="ht-btn ht-btn--primary" href="#">Quero meu Diagnóstico</a>
+        <a class="ht-btn ht-btn--primary ht-btn--lg ht-btn--pulse" href="#">CTA grande · pulse</a>
+        <a class="ht-btn ht-btn--olive" href="#">Botão oliva</a>
+        <a class="ht-btn ht-btn--outline" href="#">Saiba mais</a>
+        <a class="ht-btn ht-btn--sm" href="#">Pequeno</a>
+      </div>
+      <div class="demo demo-dark">
+        <a class="ht-btn ht-btn--primary" href="#">Quero meu Diagnóstico</a>
+        <a class="ht-btn ht-btn--ghost-light" href="#">Ghost (fundo escuro)</a>
+      </div>
+    </div></section>
+
+    <!-- ============ CHIPS & CARDS ============ -->
+    <section id="chips"><div class="wrap ht">
+      <p class="kicker">12 — Chips &amp; cards</p>
+      <h2 class="title">Blocos de conteúdo</h2>
+      <div class="demo">
+        <span class="ht-chip">Obra</span>
+        <span class="ht-chip">Frota</span>
+        <span class="ht-chip ht-chip--clay">Indústria</span>
+        <span class="ht-chip ht-chip--clay">Administrativo</span>
+      </div>
+      <div class="card-grid" style="margin-top:24px">
+        <div class="ht-card">
+          <p class="ht-eyebrow" style="margin:0 0 10px">Pilar 01</p>
+          <h3 class="ht-h3" style="margin:0 0 8px">Obra</h3>
+          <p class="ht-body--sm ht-muted" style="margin:0">Onde o resultado financeiro realmente acontece. Contratos, produção, custos e margem.</p>
+        </div>
+        <div class="ht-card ht-card--cream">
+          <p class="ht-eyebrow" style="margin:0 0 10px">Pilar 02</p>
+          <h3 class="ht-h3" style="margin:0 0 8px">Frota</h3>
+          <p class="ht-body--sm ht-muted" style="margin:0">Cada máquina como unidade de negócio monitorada — disponibilidade, custo e receita.</p>
+        </div>
+        <div class="ht-card ht-card--dark">
+          <p class="ht-eyebrow" style="margin:0 0 10px">Pilar 03</p>
+          <h3 class="ht-h3" style="margin:0 0 8px">Indústria</h3>
+          <p class="ht-body--sm" style="margin:0;color:rgba(242,240,217,.7)">Usinas e pedreiras: produção, perdas, qualidade e eficiência operacional.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- ============ TOKENS ============ -->
+    <section id="tokens"><div class="wrap">
+      <p class="kicker">13 — Referência</p>
+      <h2 class="title">Como consumir</h2>
+      <p class="lead">Importe os dois arquivos e use as variáveis. Zero build, compatível com Elementor/WordPress.</p>
+      <table class="tok">
+        <tbody>
+          <tr><td><code>design-system/tokens.css</code></td><td>Variáveis CSS (fonte da verdade)</td></tr>
+          <tr><td><code>design-system/base.css</code></td><td>Primitivos: <code>.ht-btn</code>, <code>.ht-card</code>, <code>.ht-h1</code>, <code>.ht-container</code>…</td></tr>
+          <tr><td><code>design-system/assets/</code></td><td>Logos em todas as variantes (.svg)</td></tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:24px">
+        <b>Próximo passo:</b> com o design system aprovado, partimos para a estrutura por dobras da landing page (skill de página de lançamento), consumindo exclusivamente estes tokens.
+      </div>
+    </div></section>
+
+  </main>
+</div>
+</body>
+</html>
