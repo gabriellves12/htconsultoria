@@ -255,13 +255,17 @@ ul{margin:0;padding:0;list-style:none}
 .lp-feature__panel .lp-pull{margin-top:36px;padding-top:32px}
 
 /* ===== ORIGEM (centralizado + foto do fundador no fundo) ===== */
-.lp-origem{position:relative;overflow:hidden;display:flex;align-items:center;min-height:84vh}
+.lp-origem{position:relative;overflow:hidden;display:flex;align-items:center;min-height:90vh}
 .lp-origem__bg{position:absolute;inset:0;z-index:0;background:var(--neutral-950) center/cover no-repeat}
-.lp-origem__content{position:relative;z-index:2;max-width:540px;display:flex;flex-direction:column;gap:22px;text-shadow:0 1px 18px rgba(0,0,0,.55)}
-.lp-origem__content .lp-h2{margin:0;max-width:16ch}
-.lp-origem__content .lp-narrative{margin:0}
-.lp-origem__content .lp-narrative p{font-size:1.25rem;line-height:1.55} /* 20px */
-.lp-origem__content .lp-narrative p+p{margin-top:18px}
+.lp-origem__split{position:relative;z-index:2;display:grid;gap:40px;width:100%;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+@media(min-width:1024px){.lp-origem__split{grid-template-columns:1fr 1fr;gap:80px;align-items:center}}
+.lp-origem__left{display:flex;flex-direction:column;gap:24px;max-width:30ch}
+.lp-origem__left .lp-h2{margin:0;max-width:15ch}
+.lp-origem__right{max-width:38ch}
+@media(min-width:1024px){.lp-origem__right{justify-self:end}}
+.lp-origem__right .lp-narrative{margin:0}
+.lp-origem__right .lp-narrative p{font-size:1.0625rem;line-height:1.55}
+.lp-origem__right .lp-narrative p+p{margin-top:16px}
 
 /* ===== QUOTE ===== */
 .lp-quote{display:grid;gap:28px}
@@ -594,12 +598,19 @@ ul{margin:0;padding:0;list-style:none}
 <section class="lp-section lp-dark lp-origem" id="origem">
   <div class="lp-origem__bg" style="background-image:url('assets/fundador.png')" aria-hidden="true"></div>
 
-  <div class="lp-container">
-    <div class="lp-origem__content reveal">
+  <div class="lp-container lp-origem__split">
+    <div class="lp-origem__left reveal">
       <span class="lp-label">A origem da HT.<span class="lp-label__sub">Nasceu dentro de uma construtora, não em uma sala de reunião.</span></span>
       <h2 class="lp-h2">Uma metodologia criada por quem viveu o problema <span class="lp-accent">de dentro.</span></h2>
+      <a href="#cta" class="ht-btn ht-btn--primary lp-cta" style="align-self:flex-start">
+        <span class="lp-cta__label">Quero meu Diagnóstico</span>
+        <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
+      </a>
+    </div>
+    <div class="lp-origem__right reveal" data-delay="1">
       <div class="lp-narrative">
-        <p>Por mais de 13 anos, nosso fundador viveu por dentro a rotina de uma empresa de obra pesada, não como consultor ou auditor, mas como <span class="hl">parte da operação.</span> Começou organizando processos e foi assumindo cada vez mais responsabilidades, até se tornar o braço direito do dono. Acompanhou o crescimento: novos contratos, equipes, máquinas. Mas também viveu o outro lado: desorganização, perda de visibilidade, crise e reconstrução.</p>
+        <p>Por mais de 13 anos, nosso fundador viveu por dentro a rotina de uma empresa de obra pesada, não como consultor ou auditor, mas como parte da operação. Começou organizando processos e foi assumindo cada vez mais responsabilidades, até se tornar o braço direito do dono.</p>
+        <p>Acompanhou o crescimento: novos contratos, equipes, máquinas. Mas também viveu o outro lado: desorganização, perda de visibilidade, crise e reconstrução.</p>
         <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como ela enxerga, ou deixa de enxergar, a própria operação.</p>
       </div>
     </div>
