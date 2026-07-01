@@ -447,6 +447,30 @@ ul{margin:0;padding:0;list-style:none}
 .lp-footer__social svg{width:20px;height:20px;flex-shrink:0}
 .lp-footer small{font-size:13px;max-width:34ch}
 
+/* ===== POP-UP DE LEAD (formulário → obrigado) ===== */
+.lp-lead{position:fixed;inset:0;z-index:var(--z-modal);display:none;align-items:center;justify-content:center;
+  padding:24px;background:rgba(10,10,10,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.lp-lead.is-open{display:flex;animation:modalin var(--dur-base) var(--ease-out)}
+.lp-lead__box{position:relative;width:100%;max-width:520px;max-height:92vh;overflow:auto;
+  background:var(--neutral-950);border:1px solid var(--color-border-inverse);border-radius:var(--radius-xl);
+  padding:44px 40px;color:var(--cream-base);box-shadow:var(--shadow-xl)}
+.lp-lead__close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;cursor:pointer;
+  background:rgba(242,240,217,.08);border:1px solid var(--color-border-inverse);color:var(--cream-base);display:grid;place-items:center;transition:background var(--dur-fast)}
+.lp-lead__close:hover{background:rgba(242,240,217,.18)}
+.lp-lead h3{font-size:var(--fs-24);font-weight:500;margin:0 0 8px;letter-spacing:var(--ls-tight);color:var(--cream-base)}
+.lp-lead__form>p,.lp-lead__thanks p{color:rgba(242,240,217,.66);margin:0 0 26px;font-size:var(--fs-body-sm);line-height:1.55}
+.lp-lead form{display:flex;flex-direction:column;gap:14px}
+.lp-lead__row{display:grid;gap:14px}
+@media(min-width:520px){.lp-lead__row{grid-template-columns:1fr 1fr}}
+.lp-lead input{width:100%;padding:15px 16px;background:rgba(242,240,217,.04);border:1px solid var(--color-border-inverse);
+  border-radius:var(--radius-md);color:var(--cream-base);font:inherit;font-size:var(--fs-body-sm);transition:border-color var(--dur-fast),background var(--dur-fast)}
+.lp-lead input::placeholder{color:rgba(242,240,217,.42)}
+.lp-lead input:focus{outline:none;border-color:var(--clay-500);background:rgba(242,240,217,.07)}
+.lp-lead form .ht-btn{margin-top:8px}
+.lp-lead__thanks{text-align:center;padding:8px 0}
+.lp-lead__check{width:66px;height:66px;border-radius:50%;background:rgba(163,124,85,.16);color:var(--clay-400);display:grid;place-items:center;margin:0 auto 22px}
+.lp-lead__thanks .ht-btn{margin-top:28px}
+
 /* ===== REVEAL (família de fades curada do animate.css — dispara 1x na entrada) ===== */
 .reveal{opacity:0}
 .reveal.is-visible{animation:fadeInUp .8s cubic-bezier(.16,1,.3,1) both}
@@ -875,6 +899,36 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </div>
 
+<!-- ============ POP-UP DE LEAD ============ -->
+<div class="lp-lead" id="leadModal" role="dialog" aria-modal="true" aria-label="Agende seu Diagnóstico">
+  <div class="lp-lead__box">
+    <button class="lp-lead__close" id="leadClose" type="button" aria-label="Fechar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="lp-lead__form" id="leadForm">
+      <h3>Quero meu Diagnóstico</h3>
+      <p>Preencha seus dados e um dos nossos consultores entra em contato.</p>
+      <form id="leadFormEl" novalidate>
+        <div class="lp-lead__row">
+          <input name="nome" placeholder="Nome*" required autocomplete="name">
+          <input name="telefone" placeholder="Telefone*" required autocomplete="tel" inputmode="tel">
+        </div>
+        <input name="email" type="email" placeholder="E-mail*" required autocomplete="email">
+        <input name="cargo" placeholder="Cargo na empresa" autocomplete="organization-title">
+        <button type="submit" class="ht-btn ht-btn--primary ht-btn--block">Enviar</button>
+      </form>
+    </div>
+
+    <div class="lp-lead__thanks" id="leadThanks" hidden>
+      <div class="lp-lead__check" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Recebemos o seu cadastro!</h3>
+      <p>Obrigado. Em breve um dos nossos consultores vai entrar em contato com você.</p>
+      <button type="button" class="ht-btn ht-btn--primary ht-btn--block" id="leadDone">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer class="lp-footer">
   <div class="lp-container lp-footer__inner">
@@ -943,6 +997,30 @@ ul{margin:0;padding:0;list-style:none}
       else{item.classList.add('is-open');btn.setAttribute('aria-expanded',true);ans.style.maxHeight=ans.scrollHeight+'px';}
     });
   });
+
+  /* Pop-up de lead: abre em TODOS os CTAs → formulário → obrigado */
+  var lead=document.getElementById('leadModal');
+  if(lead){
+    var leadForm=document.getElementById('leadForm'), leadThanks=document.getElementById('leadThanks'),
+        leadFormEl=document.getElementById('leadFormEl'), leadClose=document.getElementById('leadClose'),
+        leadDone=document.getElementById('leadDone');
+    function openLead(){ leadForm.hidden=false; leadThanks.hidden=true; lead.classList.add('is-open'); document.body.style.overflow='hidden';
+      setTimeout(function(){var f=leadFormEl.querySelector('input');if(f)f.focus();},120); }
+    function closeLead(){ lead.classList.remove('is-open'); document.body.style.overflow=''; }
+    [].slice.call(document.querySelectorAll('.lp-cta, .lp-dock__cta')).forEach(function(btn){
+      btn.addEventListener('click',function(e){ e.preventDefault(); openLead(); });
+    });
+    leadFormEl.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(!leadFormEl.checkValidity()){ leadFormEl.reportValidity(); return; }
+      /* TODO: enviar os dados para backend/CRM. Por ora, apenas confirma. */
+      leadForm.hidden=true; leadThanks.hidden=false; leadFormEl.reset();
+    });
+    leadClose.addEventListener('click',closeLead);
+    if(leadDone) leadDone.addEventListener('click',closeLead);
+    lead.addEventListener('click',function(e){ if(e.target===lead) closeLead(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lead.classList.contains('is-open')) closeLead(); });
+  }
 })();
 </script>
 
