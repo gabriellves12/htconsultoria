@@ -317,7 +317,7 @@ ul{margin:0;padding:0;list-style:none}
 .lp-step__title{font-size:var(--fs-h3);font-weight:500;color:var(--cream-base);margin:16px 0 0;letter-spacing:var(--ls-tight)}
 .lp-step__dash{display:block;width:26px;height:2px;background:var(--clay-500);margin:14px 0}
 .lp-step__text{font-size:1rem;line-height:1.55;color:rgba(242,240,217,.68);margin:0}
-.lp-tries__close{max-width:56ch;margin:56px auto 0;text-align:center;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:500;line-height:1.4;color:var(--cream-base)}
+.lp-tries__close{max-width:64ch;margin:56px 0 0;text-align:left;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:500;line-height:1.4;color:var(--cream-base)}
 @media(prefers-reduced-motion:reduce){.lp-step__mark{transition:none}}
 
 /* ===== TERCEIRA DOBRA: 3 colunas (texto | imagem | pontos) ===== */
@@ -599,12 +599,9 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ TENTATIVAS (E você fez o que qualquer dono faria) ============ -->
 <section class="lp-section lp-dark" id="tentativas">
   <div class="lp-container">
-    <div class="lp-rail" style="margin-bottom:48px">
-      <div class="reveal"><span class="lp-label">A reação natural.</span></div>
-      <div class="reveal" data-delay="1">
-        <h2 class="lp-h2">E você fez o que qualquer dono faria.</h2>
-        <p class="lp-lead">Quando o controle começa a escapar, todo dono reage. E quase sempre pelos mesmos quatro caminhos:</p>
-      </div>
+    <div class="reveal" style="margin-bottom:48px;max-width:64ch">
+      <h2 class="lp-h2">E você fez o que qualquer dono faria.</h2>
+      <p class="lp-lead">Quando o controle começa a escapar, todo dono reage. E quase sempre pelos mesmos quatro caminhos:</p>
     </div>
     <div class="lp-steps reveal">
       <div class="lp-steps__grid">
@@ -748,12 +745,9 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ 4 PILARES ============ -->
 <section class="lp-section lp-dark" id="pilares">
   <div class="lp-container">
-    <div class="lp-rail lp-pillars-intro" style="margin-bottom:48px">
-      <div class="reveal"><span class="lp-label">A metodologia.<span class="lp-label__sub">Quatro pilares estratégicos.</span></span></div>
-      <div class="reveal" data-delay="1">
-        <h2 class="lp-h2">Os 4 pilares que transformam uma empresa confusa<br>numa empresa gerida com clareza</h2>
-        <p class="lp-lead" style="max-width:62ch">Em vez de controlar centenas de informações soltas, a HT organiza a empresa em quatro blocos que dá pra enxergar.</p>
-      </div>
+    <div class="lp-pillars-intro reveal" style="margin-bottom:48px">
+      <h2 class="lp-h2">Os 4 pilares que transformam uma empresa confusa<br>numa empresa gerida com clareza</h2>
+      <p class="lp-lead" style="max-width:62ch">Em vez de controlar centenas de informações soltas, a HT organiza a empresa em quatro blocos que dá pra enxergar.</p>
     </div>
 
     <!-- imagem de cada pilar: adicione style="background-image:url('assets/obra.jpg')" no .lp-pcard__img -->
@@ -804,8 +798,8 @@ ul{margin:0;padding:0;list-style:none}
 
 <!-- ============ FAQ ============ -->
 <section class="lp-section lp-cream" id="faq">
-  <div class="lp-container lp-rail">
-    <div class="reveal"><span class="lp-label">Dúvidas frequentes.</span></div>
+  <div class="lp-container">
+    <h2 class="lp-h2 reveal" style="margin-bottom:40px">Dúvidas frequentes.</h2>
     <div class="reveal" data-delay="1">
       <div class="lp-faq">
         <div class="lp-faq__item">
