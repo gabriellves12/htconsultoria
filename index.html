@@ -53,6 +53,15 @@ body{
 }
 /* com JS ativo, as dobras ficam transparentes p/ revelar o fundo que faz o cross-fade */
 .colorfx .lp-dark,.colorfx .lp-cream,.colorfx .lp-white,.colorfx .lp-proof{background-color:transparent}
+
+/* ===== PRELOADER (logo entra, depois some) ===== */
+.lp-preloader{position:fixed;inset:0;z-index:10000;background:var(--neutral-950);display:grid;place-items:center;
+  transition:opacity .65s var(--ease-out),visibility .65s}
+.lp-preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.lp-preloader__logo{width:180px;max-width:62vw;height:auto;opacity:0;transform:translateY(16px) scale(.94);
+  animation:preloadIn 1.15s var(--ease-out) .1s forwards}
+@keyframes preloadIn{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.lp-preloader__logo{animation:none;opacity:1;transform:none}}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{margin:0;padding:0;list-style:none}
@@ -499,6 +508,21 @@ ul{margin:0;padding:0;list-style:none}
 </style>
 </head>
 <body class="ht">
+
+<!-- ============ PRELOADER ============ -->
+<div class="lp-preloader" id="preloader" aria-hidden="true">
+  <img class="lp-preloader__logo" src="design-system/assets/ht-logo-dark-bg.svg" alt="HT">
+</div>
+<script>
+(function(){
+  var pre=document.getElementById('preloader');
+  if(!pre) return;
+  var hold=matchMedia('(prefers-reduced-motion: reduce)').matches?300:1900;
+  function done(){ if(pre.classList.contains('is-done'))return; pre.classList.add('is-done'); setTimeout(function(){if(pre&&pre.parentNode)pre.parentNode.removeChild(pre);},700); }
+  setTimeout(done,hold);
+  window.addEventListener('load',function(){setTimeout(done,hold);});
+})();
+</script>
 
 <!-- ============ DOCK — menu flutuante inferior ============ -->
 <div class="lp-dock" id="dock">
