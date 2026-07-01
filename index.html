@@ -317,7 +317,10 @@ ul{margin:0;padding:0;list-style:none}
 .lp-step__title{font-size:var(--fs-h3);font-weight:500;color:var(--cream-base);margin:16px 0 0;letter-spacing:var(--ls-tight)}
 .lp-step__dash{display:block;width:26px;height:2px;background:var(--clay-500);margin:14px 0}
 .lp-step__text{font-size:1rem;line-height:1.55;color:rgba(242,240,217,.68);margin:0}
-.lp-tries__close{max-width:64ch;margin:56px 0 0;text-align:left;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:500;line-height:1.4;color:var(--cream-base)}
+.lp-tries__foot{display:flex;flex-direction:column;gap:28px;align-items:flex-start;margin-top:56px}
+@media(min-width:768px){.lp-tries__foot{flex-direction:row;justify-content:space-between;align-items:center;gap:48px}}
+.lp-tries__foot .lp-cta{flex-shrink:0}
+.lp-tries__close{max-width:52ch;margin:0;text-align:left;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:500;line-height:1.4;color:var(--cream-base)}
 @media(prefers-reduced-motion:reduce){.lp-step__mark{transition:none}}
 
 /* ===== TERCEIRA DOBRA: 3 colunas (texto | imagem | pontos) ===== */
@@ -635,7 +638,13 @@ ul{margin:0;padding:0;list-style:none}
         </div>
       </div>
     </div>
-    <p class="lp-tries__close reveal" data-delay="1">Cada tentativa parecia a saída certa. Nenhuma resolveu, porque todas tratavam o sintoma, não a causa.</p>
+    <div class="lp-tries__foot reveal" data-delay="1">
+      <p class="lp-tries__close">Cada tentativa parecia a saída certa. Nenhuma resolveu, porque todas tratavam o sintoma, não a causa.</p>
+      <a href="#cta" class="ht-btn ht-btn--primary lp-cta">
+        <span class="lp-cta__label">Quero meu Diagnóstico</span>
+        <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -699,12 +708,9 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ DIAGNÓSTICO / ENTREGÁVEIS ============ -->
 <section class="lp-section lp-cream" id="diagnostico">
   <div class="lp-container">
-    <div class="lp-rail" style="margin-bottom:48px">
-      <div class="reveal"><span class="lp-label">O que você recebe.<span class="lp-label__sub">Dividindo a complexidade em entregáveis claros.</span></span></div>
-      <div class="reveal" data-delay="1">
-        <h2 class="lp-h2">O que você recebe no Diagnóstico Estratégico HT</h2>
-        <p class="lp-lead" style="max-width:60ch">Ao concluir o diagnóstico, você recebe uma visão estruturada da sua empresa, não um relatório que ninguém lê.</p>
-      </div>
+    <div class="reveal" style="margin-bottom:48px">
+      <h2 class="lp-h2">O que você recebe no Diagnóstico Estratégico HT</h2>
+      <p class="lp-lead" style="max-width:60ch">Ao concluir o diagnóstico, você recebe uma visão estruturada da sua empresa, não um relatório que ninguém lê.</p>
     </div>
 
     <div class="lp-list">
