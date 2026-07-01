@@ -296,7 +296,11 @@ ul{margin:0;padding:0;list-style:none}
 .lp-duo__col--ctrl .lp-duo__word{color:var(--color-text-subtle)}
 .lp-duo p{font-size:1.0625rem;line-height:1.6;color:var(--color-text-muted);margin:0}
 
-/* ===== DOBRA "TENTATIVAS" — roadmap escalonado (número · título · texto) ===== */
+/* ===== DOBRA "TENTATIVAS" — roadmap (número · título · texto) ===== */
+.lp-tries__head{display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+@media(min-width:768px){.lp-tries__head{flex-direction:row;justify-content:space-between;align-items:center;gap:48px}}
+.lp-tries__head-text{max-width:64ch}
+.lp-tries__logo{width:132px;height:auto;flex-shrink:0}
 .lp-steps__grid{position:relative;display:grid;gap:36px 24px;grid-template-columns:1fr}
 @media(min-width:900px){
   .lp-steps__grid{grid-template-columns:repeat(4,1fr);gap:24px;padding-top:26px}
@@ -609,9 +613,12 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ TENTATIVAS (E você fez o que qualquer dono faria) ============ -->
 <section class="lp-section lp-dark" id="tentativas">
   <div class="lp-container">
-    <div class="reveal" style="margin-bottom:48px;max-width:64ch">
-      <h2 class="lp-h2">E você fez o que qualquer dono faria.</h2>
-      <p class="lp-lead">Quando o controle começa a escapar, todo dono reage. E quase sempre pelos mesmos quatro caminhos:</p>
+    <div class="lp-tries__head reveal" style="margin-bottom:48px">
+      <div class="lp-tries__head-text">
+        <h2 class="lp-h2">E você fez o que qualquer dono faria.</h2>
+        <p class="lp-lead">Quando o controle começa a escapar, todo dono reage.<br>E quase sempre pelos mesmos quatro caminhos:</p>
+      </div>
+      <img class="lp-tries__logo" src="design-system/assets/ht-logo-dark-bg.svg" alt="HT Consultoria">
     </div>
     <div class="lp-steps reveal">
       <div class="lp-steps__grid">
