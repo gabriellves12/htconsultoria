@@ -162,14 +162,15 @@ ul{margin:0;padding:0;list-style:none}
   .lp-hero__bar-left{justify-self:center}
   .lp-hero__bar-right{display:none} /* intro vai pra baixo do título no mobile */
 }
-.lp-hero__intro{max-width:38ch;font-size:1.25rem;font-weight:500;line-height:1.4;color:rgba(242,240,217,.82)}
+.lp-hero__intro{max-width:38ch;font-size:1.25rem;font-weight:400;line-height:1.4;color:rgba(242,240,217,.82)}
+.lp-hero__intro strong{font-weight:500;color:var(--cream-base)}
 .lp-hero__intro--m{display:none}
 @media(min-width:768px){.lp-hero__intro{text-align:right;margin-left:auto}}
 @media(max-width:767px){.lp-hero__intro--m{display:block;text-align:left;margin:0;max-width:none}}
 
 .lp-hero__bottom{display:flex;flex-direction:column;gap:32px}
 @media(min-width:1024px){.lp-hero__bottom{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:48px}}
-.lp-hero h1{font-size:clamp(2.25rem,5vw,3.5rem);font-weight:500;line-height:1.02;letter-spacing:var(--ls-tighter);margin:0;max-width:16ch}
+.lp-hero h1{font-size:clamp(2.25rem,5vw,3.5rem);font-weight:500;line-height:1.05;letter-spacing:var(--ls-tighter);margin:0;max-width:22ch}
 .lp-hero h1 .muted{color:var(--clay-400)}
 .lp-hero__cta{display:flex;flex-direction:column;gap:20px;align-items:flex-start;flex-shrink:0}
 @media(min-width:1024px){.lp-hero__cta{align-items:flex-end;min-width:320px}}
@@ -217,11 +218,10 @@ ul{margin:0;padding:0;list-style:none}
 .lp-marquee__track{display:flex;align-items:center;gap:64px;width:max-content;animation:marquee 34s linear infinite}
 .lp-marquee:hover .lp-marquee__track{animation-play-state:paused}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.lp-logo-item{display:flex;align-items:center;gap:11px;color:var(--olive-900);opacity:.38;
-  white-space:nowrap;transition:opacity var(--dur-base) var(--ease-out)}
-.lp-logo-item:hover{opacity:1}
-.lp-logo-item svg{width:26px;height:26px;flex-shrink:0}
-.lp-logo-item span{font-size:1.0625rem;letter-spacing:.02em}
+/* logos dos clientes em tom escuro (identidade), esmaecidas; acendem no hover */
+.lp-logo-img{height:40px;width:auto;flex-shrink:0;opacity:.55;filter:brightness(0);
+  transition:opacity var(--dur-base) var(--ease-out)}
+.lp-logo-img:hover{opacity:.9}
 @media(prefers-reduced-motion:reduce){.lp-marquee__track{animation:none}}
 
 /* ===== NARRATIVA (rail) ===== */
@@ -296,6 +296,15 @@ ul{margin:0;padding:0;list-style:none}
 .lp-duo__col--ctrl .lp-duo__word{color:var(--color-text-subtle)}
 .lp-duo p{font-size:1.0625rem;line-height:1.6;color:var(--color-text-muted);margin:0}
 
+/* ===== DOBRA "TENTATIVAS" (o que o dono já tentou) ===== */
+.lp-tries{display:grid;gap:16px}
+@media(min-width:768px){.lp-tries{grid-template-columns:1fr 1fr}}
+.lp-try{background:rgba(242,240,217,.04);border:1px solid var(--color-border-inverse);border-radius:var(--radius-lg);padding:30px}
+.lp-try__idx{font-size:var(--fs-caption);font-weight:500;letter-spacing:.14em;color:var(--clay-400);font-variant-numeric:tabular-nums}
+.lp-try h3{font-size:var(--fs-h3);font-weight:500;color:var(--cream-base);margin:10px 0 12px;letter-spacing:var(--ls-tight)}
+.lp-try p{font-size:1.0625rem;line-height:1.55;color:rgba(242,240,217,.7);margin:0}
+.lp-tries__close{max-width:56ch;margin:44px auto 0;text-align:center;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:500;line-height:1.4;color:var(--cream-base)}
+
 /* ===== TERCEIRA DOBRA: 3 colunas (texto | imagem | pontos) ===== */
 .lp-trio{display:grid;gap:20px}
 @media(min-width:1024px){.lp-trio{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr) minmax(0,1fr);gap:24px;align-items:stretch}}
@@ -346,7 +355,7 @@ ul{margin:0;padding:0;list-style:none}
 .lp-pcards{display:grid;gap:16px;grid-template-columns:1fr}
 @media(min-width:640px){.lp-pcards{grid-template-columns:1fr 1fr}}
 @media(min-width:1024px){.lp-pcards{grid-template-columns:repeat(4,1fr);gap:18px}}
-.lp-pcard{position:relative;overflow:hidden;border-radius:var(--radius-xl);min-height:470px;
+.lp-pcard{position:relative;overflow:hidden;border-radius:var(--radius-xl);min-height:540px;
   display:flex;flex-direction:column;justify-content:flex-end;color:var(--cream-base);
   border:1px solid var(--color-border-inverse)}
 .lp-pcard__img{position:absolute;inset:0;z-index:0;background-color:var(--olive-800);
@@ -362,11 +371,11 @@ ul{margin:0;padding:0;list-style:none}
 .lp-pcard h3{font-size:var(--fs-24);font-weight:500;letter-spacing:var(--ls-tight);margin:0;color:var(--cream-base)}
 .lp-pcard__topics{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .lp-pcard__topics li{font-size:var(--fs-caption);color:rgba(242,240,217,.85);background:rgba(242,240,217,.1);border:1px solid var(--color-border-inverse);padding:4px 10px;border-radius:99px}
-.lp-pcard__desc{font-size:1rem;line-height:1.5;color:rgba(242,240,217,.82);margin:0;
+.lp-pcard__desc{font-size:.9375rem;line-height:1.5;color:rgba(242,240,217,.82);margin:0;
   max-height:0;opacity:0;overflow:hidden;
   transition:max-height var(--dur-slow) var(--ease-out),opacity var(--dur-base) var(--ease-out),margin var(--dur-slow) var(--ease-out)}
-@media(hover:hover){.lp-pcard:hover .lp-pcard__desc{max-height:280px;opacity:1;margin-top:14px}}
-@media(hover:none){.lp-pcard__desc{max-height:280px;opacity:1;margin-top:14px}}
+@media(hover:hover){.lp-pcard:hover .lp-pcard__desc{max-height:400px;opacity:1;margin-top:14px}}
+@media(hover:none){.lp-pcard__desc{max-height:400px;opacity:1;margin-top:14px}}
 
 /* ===== FAQ ===== */
 .lp-faq__item{border-top:1px solid var(--color-border)}
@@ -401,6 +410,9 @@ ul{margin:0;padding:0;list-style:none}
 .lp-footer__loc svg{width:20px;height:20px;color:var(--clay-400);flex-shrink:0;margin-top:1px}
 .lp-footer__label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay-400);margin-bottom:5px}
 .lp-footer__loc p{margin:0;font-size:14px;line-height:1.5;color:rgba(242,240,217,.72);max-width:32ch}
+.lp-footer__contact{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.lp-footer__contact a{color:rgba(242,240,217,.72);transition:color var(--dur-fast)}
+.lp-footer__contact a:hover{color:var(--clay-400)}
 .lp-footer__social{display:inline-flex;align-items:center;gap:9px;color:rgba(242,240,217,.72);font-size:var(--fs-body-sm);transition:color var(--dur-fast)}
 .lp-footer__social:hover{color:var(--clay-400)}
 .lp-footer__social svg{width:20px;height:20px;flex-shrink:0}
@@ -491,14 +503,14 @@ ul{margin:0;padding:0;list-style:none}
         <div class="lp-hero__stat"><b>4 pilares</b><span>toda a empresa, organizada</span></div>
       </div>
       <div class="lp-hero__bar-right">
-        <p class="lp-hero__intro">A HT nasceu para devolver ao empresário o que nenhuma ferramenta entrega sozinha: visibilidade sobre o próprio negócio.</p>
+        <p class="lp-hero__intro">A HT nasceu para devolver ao empresário o que nenhuma ferramenta entrega sozinha: <strong>visibilidade sobre o próprio negócio.</strong></p>
       </div>
     </div>
 
     <!-- BASE: headline (esq) · CTA (dir) -->
     <div class="lp-hero__bottom reveal" data-delay="1">
-      <h1>Você parou de enxergar a <span class="muted">operação.</span></h1>
-      <p class="lp-hero__intro lp-hero__intro--m">A HT nasceu para devolver ao empresário o que nenhuma ferramenta entrega sozinha: visibilidade sobre o próprio negócio.</p>
+      <h1>Você não perdeu o controle da sua construtora. Você apenas parou de enxergar a <span class="muted">operação.</span></h1>
+      <p class="lp-hero__intro lp-hero__intro--m">A HT nasceu para devolver ao empresário o que nenhuma ferramenta entrega sozinha: <strong>visibilidade sobre o próprio negócio.</strong></p>
       <div class="lp-hero__cta">
         <a href="#cta" class="ht-btn ht-btn--primary ht-btn--lg lp-cta">
           <span class="lp-cta__label">Quero meu Diagnóstico</span>
@@ -514,24 +526,29 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ PROVA SOCIAL / MARQUEE ============ -->
 <section class="lp-proof">
   <div class="lp-container lp-proof__grid reveal">
-    <!-- TODO: troque "120" pelo número real de construtoras impactadas -->
-    <p class="lp-proof__label">Mais de <b>120</b> construtoras impactadas.</p>
+    <p class="lp-proof__label">Mais de <b>30</b> construtoras impactadas.</p>
     <div class="lp-marquee" aria-label="Construtoras atendidas pela HT">
       <div class="lp-marquee__track">
-        <!-- grupo 1 (logos placeholder — troque pelas logos reais dos clientes) -->
-        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg><span>Construtora Norte</span></div>
-        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 16H3z"/></svg><span>EngeBR</span></div>
-        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" transform="rotate(45 12 12)"/></svg><span>Pavix</span></div>
-        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8.7 5v10L12 22 3.3 17V7z"/></svg><span>Terrano</span></div>
-        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="9" width="4" height="12"/><rect x="10" y="4" width="4" height="17"/><rect x="17" y="13" width="4" height="8"/></svg><span>Obramax</span></div>
-        <div class="lp-logo-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h8l8 8-8 8H4l8-8z"/></svg><span>GME Engenharia</span></div>
-        <!-- grupo 2 (cópia idêntica p/ loop contínuo) -->
-        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg><span>Construtora Norte</span></div>
-        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 16H3z"/></svg><span>EngeBR</span></div>
-        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" transform="rotate(45 12 12)"/></svg><span>Pavix</span></div>
-        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8.7 5v10L12 22 3.3 17V7z"/></svg><span>Terrano</span></div>
-        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="9" width="4" height="12"/><rect x="10" y="4" width="4" height="17"/><rect x="17" y="13" width="4" height="8"/></svg><span>Obramax</span></div>
-        <div class="lp-logo-item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h8l8 8-8 8H4l8-8z"/></svg><span>GME Engenharia</span></div>
+        <img class="lp-logo-img" src="logosclientes/logo1.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo2.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo3.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo4.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo5.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo1.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo2.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo3.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo4.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo5.svg" alt="Cliente HT">
+        <img class="lp-logo-img" src="logosclientes/logo1.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo2.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo3.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo4.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo5.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo1.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo2.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo3.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo4.svg" alt="" aria-hidden="true">
+        <img class="lp-logo-img" src="logosclientes/logo5.svg" alt="" aria-hidden="true">
       </div>
     </div>
   </div>
@@ -549,19 +566,55 @@ ul{margin:0;padding:0;list-style:none}
 
       <!-- PAINEL À DIREITA -->
       <div class="lp-feature__panel reveal" data-anim="right" data-delay="1">
-        <span class="lp-label">O contexto.<span class="lp-label__sub">Toda construtora passa pela mesma história.</span></span>
+        <span class="lp-label">O contexto.</span>
+        <h2 class="lp-h2" style="margin:0 0 4px">Toda construtora passa pela mesma história.</h2>
         <div class="lp-narrative">
-          <p>No começo, tudo funciona. O dono conhece cada obra. Sabe onde está cada equipamento. Conhece cada colaborador pelo nome. Lembra quanto entrou, quanto saiu e quais contratos estão dando resultado.</p>
-          <p>A empresa gira em torno dele. E isso funciona. Até que chega o crescimento: um contrato maior, mais obras, mais equipes… E, pela primeira vez, aquilo que sempre funcionou começa a falhar.</p>
-          <p class="strong">Não porque a empresa cresceu. Mas porque ninguém preparou a gestão para crescer junto.</p>
+          <p>No começo, tudo funciona. O dono conhece cada obra, sabe onde está cada equipamento, chama cada colaborador pelo nome. Lembra quanto entrou, quanto saiu e quais contratos estão dando resultado. A empresa gira em torno dele. E funciona.</p>
+          <p class="strong">Até que chega o crescimento. Um contrato maior, mais obras, mais equipes. E, pela primeira vez, o que sempre funcionou começa a falhar. Não porque a empresa cresceu, mas porque ninguém preparou a gestão para crescer junto.</p>
         </div>
         <figure class="lp-pull">
-          <blockquote>“Eu sinto que estou trabalhando mais do que nunca… e entendendo menos do que acontece dentro da minha empresa.”</blockquote>
+          <blockquote>“Sinto que estou trabalhando mais do que nunca, e entendendo menos do que acontece dentro da minha empresa.”</blockquote>
           <figcaption>O dono de toda construtora em crescimento</figcaption>
         </figure>
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ============ TENTATIVAS (E você fez o que qualquer dono faria) ============ -->
+<section class="lp-section lp-dark" id="tentativas">
+  <div class="lp-container">
+    <div class="lp-rail" style="margin-bottom:48px">
+      <div class="reveal"><span class="lp-label">A reação natural.</span></div>
+      <div class="reveal" data-delay="1">
+        <h2 class="lp-h2">E você fez o que qualquer dono faria.</h2>
+        <p class="lp-lead">Quando o controle começa a escapar, todo dono reage. E quase sempre pelos mesmos quatro caminhos:</p>
+      </div>
+    </div>
+    <div class="lp-tries reveal" data-delay="1">
+      <div class="lp-try">
+        <span class="lp-try__idx">01</span>
+        <h3>Colocou gente de confiança em cada frente.</h3>
+        <p>Um na obra, um no financeiro, um na frota, o braço direito de cada setor. Só que, sem visibilidade, você não delegou o problema: espalhou a sobrecarga. Eles ficaram tão no escuro quanto você.</p>
+      </div>
+      <div class="lp-try">
+        <span class="lp-try__idx">02</span>
+        <h3>Contratou mais gente.</h3>
+        <p>Mais cargos, mais funções, pra dar conta do que crescia. A empresa inchou. Como ninguém definiu quem controla o quê, cada contratação virou mais uma pessoa pedindo informação, não dando. Pra saber algo simples, agora são cinco conversas em vez de duas.</p>
+      </div>
+      <div class="lp-try">
+        <span class="lp-try__idx">03</span>
+        <h3>Trocou de sistema.</h3>
+        <p>Apostou que o problema era a ferramenta. Ou o ERP não entregou a informação do jeito que você precisa, ou nem rodou de verdade, metade no sistema novo, metade na planilha velha. A ficha caiu: ferramenta não cria ordem, só acelera a que já existe.</p>
+      </div>
+      <div class="lp-try">
+        <span class="lp-try__idx">04</span>
+        <h3>Trouxe um nome de fora.</h3>
+        <p>Um currículo brilhante pra dar um jeito em tudo. É o que mais falha, e não é sobre a pessoa: é o modelo. A equipe que já estava lá resiste, você não dá autonomia real a quem ainda não conquistou a casa, e quem chega de fora não tem o contexto da sua empresa. No fim, ele desiste ou a empresa desiste dele.</p>
+      </div>
+    </div>
+    <p class="lp-tries__close reveal" data-delay="1">Cada tentativa parecia a saída certa. Nenhuma resolveu, porque todas tratavam o sintoma, não a causa.</p>
   </div>
 </section>
 
@@ -574,7 +627,7 @@ ul{margin:0;padding:0;list-style:none}
       <div class="lp-trio__text reveal">
         <span class="lp-label">A distinção.<span class="lp-label__sub">O diagnóstico que muda a conversa.</span></span>
         <h2 class="lp-h2">O problema não é a falta de controle. É a falta de <span class="lp-accent">visibilidade.</span></h2>
-        <p class="lp-trio__body">Existe uma diferença enorme entre essas duas coisas.</p>
+        <p class="lp-trio__body">Existe uma diferença enorme entre as duas coisas. É aí que mora o ponto cego, e é exatamente ele que o <strong style="color:var(--color-primary)">Diagnóstico da HT ilumina</strong>.</p>
       </div>
 
       <!-- COL 2 · IMAGEM (dobra 3) -->
@@ -587,12 +640,12 @@ ul{margin:0;padding:0;list-style:none}
         <div class="lp-point">
           <span class="lp-point__idx">Ponto 01</span>
           <h3>Controle</h3>
-          <p>É conseguir mandar. Dar a ordem, cobrar a entrega, definir o rumo. A maioria das construtoras tem isso de sobra.</p>
+          <p>Controle é conseguir mandar: dar a ordem, cobrar a entrega, definir o rumo. A maioria das construtoras tem isso de sobra.</p>
         </div>
         <div class="lp-point">
           <span class="lp-point__idx">Ponto 02</span>
           <h3>Visibilidade</h3>
-          <p>É conseguir enxergar. A maioria continua tentando controlar uma operação que já não consegue mais ver com clareza.</p>
+          <p>Visibilidade é conseguir enxergar. E a maioria segue tentando controlar uma operação que já não consegue mais ver com clareza.</p>
         </div>
       </div>
 
@@ -606,8 +659,8 @@ ul{margin:0;padding:0;list-style:none}
 
   <div class="lp-container lp-origem__split">
     <div class="lp-origem__left reveal">
-      <span class="lp-label">A origem da HT.<span class="lp-label__sub">Nasceu dentro de uma construtora, não em uma sala de reunião.</span></span>
-      <h2 class="lp-h2">Uma metodologia criada por quem<br>viveu o problema <span class="lp-accent">de dentro.</span></h2>
+      <span class="lp-label">A origem da HT.</span>
+      <h2 class="lp-h2">A HT não nasceu numa sala de reunião.<br><span class="lp-accent">Nasceu dentro de uma construtora.</span></h2>
       <a href="#cta" class="ht-btn ht-btn--primary lp-cta" style="align-self:flex-start">
         <span class="lp-cta__label">Quero meu Diagnóstico</span>
         <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
@@ -615,9 +668,9 @@ ul{margin:0;padding:0;list-style:none}
     </div>
     <div class="lp-origem__right reveal" data-delay="1">
       <div class="lp-narrative">
-        <p>Por mais de 13 anos, nosso fundador viveu por dentro a rotina de uma empresa de obra pesada, não como consultor ou auditor, mas como parte da operação. Começou organizando processos e foi assumindo cada vez mais responsabilidades, até se tornar o braço direito do dono.</p>
-        <p>Acompanhou o crescimento: novos contratos, equipes, máquinas. Mas também viveu o outro lado: desorganização, perda de visibilidade, crise e reconstrução.</p>
-        <p class="lead-strong">O problema de uma construtora raramente está nas pessoas. Está na forma como ela enxerga, ou deixa de enxergar, a própria operação.</p>
+        <p>Por mais de 13 anos, nosso fundador viveu por dentro a rotina de uma empresa de obra pesada. Não como consultor, nem auditor de visita pontual, ele era parte da operação. Começou organizando processos e foi assumindo responsabilidade até virar, na prática, o braço direito do dono.</p>
+        <p>Viveu o crescimento: novos contratos, novas equipes, novas máquinas. E viveu o outro lado também: a desorganização, a perda de visibilidade, as decisões tomadas no escuro, a crise e a reconstrução. Foi ali que nasceu um aprendizado que nenhum curso ensina: o problema de uma construtora raramente está nas pessoas. Está na forma como ela enxerga, ou deixa de enxergar, a própria operação.</p>
+        <p class="lead-strong">Por isso a HT trabalha diferente: devolve a visibilidade sem tirar você do centro das decisões e sem exigir que você vire outra pessoa. Você continua o dono. Só que enxergando tudo.</p>
       </div>
     </div>
   </div>
@@ -675,8 +728,8 @@ ul{margin:0;padding:0;list-style:none}
     <div class="lp-rail lp-pillars-intro" style="margin-bottom:48px">
       <div class="reveal"><span class="lp-label">A metodologia.<span class="lp-label__sub">Quatro pilares estratégicos.</span></span></div>
       <div class="reveal" data-delay="1">
-        <h2 class="lp-h2">Os 4 pilares que transformam uma empresa confusa<br>em uma empresa gerida com clareza</h2>
-        <p class="lp-lead" style="max-width:62ch">Ao invés de tentar controlar centenas de informações ao mesmo tempo, organizamos toda a operação em quatro frentes.</p>
+        <h2 class="lp-h2">Os 4 pilares que transformam uma empresa confusa<br>numa empresa gerida com clareza</h2>
+        <p class="lp-lead" style="max-width:62ch">Em vez de controlar centenas de informações soltas, a HT organiza a empresa em quatro blocos que dá pra enxergar.</p>
       </div>
     </div>
 
@@ -689,7 +742,7 @@ ul{margin:0;padding:0;list-style:none}
         <div class="lp-pcard__body">
           <h3>Obra</h3>
           <ul class="lp-pcard__topics"><li>Contratos</li><li>Medições</li><li>Custos</li><li>Margem</li></ul>
-          <p class="lp-pcard__desc">Onde o resultado financeiro realmente acontece. Contratos, produção, medições, custos e margem, para responder na hora: quais obras são lucrativas, onde está o maior risco e qual contrato consome margem.</p>
+          <p class="lp-pcard__desc">A obra é um contrato: é onde o dinheiro é ganho ou perdido. A gente organiza contratos, medições, custos e margem pra você responder na hora: quais obras dão lucro, onde está o maior risco e qual contrato está consumindo a sua margem. Quando essas respostas não existem, o prejuízo aparece primeiro no caixa, quando já é tarde.</p>
         </div>
       </article>
       <article class="lp-pcard reveal" data-delay="1">
@@ -699,7 +752,7 @@ ul{margin:0;padding:0;list-style:none}
         <div class="lp-pcard__body">
           <h3>Frota</h3>
           <ul class="lp-pcard__topics"><li>Disponibilidade</li><li>Manutenção</li><li>Combustível</li><li>Custo/máquina</li></ul>
-          <p class="lp-pcard__desc">Máquinas podem gerar lucro, ou prejuízo. Tudo depende da visibilidade. Avaliamos disponibilidade, manutenção, combustível e custo por máquina. Cada equipamento vira uma unidade de negócio monitorada.</p>
+          <p class="lp-pcard__desc">Cada máquina é custo e receita ao mesmo tempo, pode dar lucro ou prejuízo. A gente controla disponibilidade, manutenção, combustível e custo por máquina, e transforma cada equipamento numa unidade de negócio monitorada, não num patrimônio parado.</p>
         </div>
       </article>
       <article class="lp-pcard reveal" data-delay="2">
@@ -708,8 +761,8 @@ ul{margin:0;padding:0;list-style:none}
         <span class="lp-pcard__idx">03</span>
         <div class="lp-pcard__body">
           <h3>Indústria</h3>
-          <ul class="lp-pcard__topics"><li>Produção</li><li>Insumos</li><li>Perdas</li><li>Qualidade</li></ul>
-          <p class="lp-pcard__desc">Usinas, pedreiras e unidades produtivas têm desafios próprios. Controlamos produção, insumos, perdas, qualidade e eficiência. Quando funciona, a empresa reduz desperdício e ganha previsibilidade.</p>
+          <ul class="lp-pcard__topics"><li>Produção</li><li>Volume</li><li>Custo</li><li>Qualidade</li></ul>
+          <p class="lp-pcard__desc">Usinas e pedreiras fabricam o que a obra não acha no mercado, e cada unidade é custo e receita ao mesmo tempo. A gente controla produção, volume, custo e qualidade. Quando esse pilar funciona, cai o desperdício e sobra previsibilidade.</p>
         </div>
       </article>
       <article class="lp-pcard reveal" data-delay="3">
@@ -718,8 +771,8 @@ ul{margin:0;padding:0;list-style:none}
         <span class="lp-pcard__idx">04</span>
         <div class="lp-pcard__body">
           <h3>Administrativo</h3>
-          <ul class="lp-pcard__topics"><li>Compras</li><li>Financeiro</li><li>Fluxo de caixa</li><li>RH</li></ul>
-          <p class="lp-pcard__desc">Nenhuma operação cresce sem estrutura administrativa à altura. Compras, suprimentos, almoxarifado, RH, financeiro e fluxo de caixa. É o pilar que conecta a empresa e faz as decisões deixarem de ser reativas.</p>
+          <ul class="lp-pcard__topics"><li>Suprimentos</li><li>Financeiro</li><li>RH</li></ul>
+          <p class="lp-pcard__desc">O suporte que sustenta os outros três: comprar, pagar, receber e contratar. E é aqui que a conta da empresa inteira fecha, o que as obras e a frota geraram, menos o custo da estrutura, pra chegar no lucro real. Quando funciona, as decisões deixam de ser reativas.</p>
         </div>
       </article>
     </div>
@@ -733,20 +786,24 @@ ul{margin:0;padding:0;list-style:none}
     <div class="reveal" data-delay="1">
       <div class="lp-faq">
         <div class="lp-faq__item">
-          <button class="lp-faq__q" aria-expanded="false">Minha empresa ainda utiliza planilhas. Posso fazer o diagnóstico?<span class="lp-faq__icon" aria-hidden="true"></span></button>
-          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Sim.</strong> Nossa metodologia funciona independentemente da ferramenta. Se a empresa usa ERP, usamos essas informações. Se usa planilhas, fazemos o levantamento nelas. E mesmo quando parte dos dados está só na experiência da equipe, conseguimos realizar o diagnóstico.</div></div>
+          <button class="lp-faq__q" aria-expanded="false">Minha empresa ainda usa planilha. Posso fazer o diagnóstico?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Sim.</strong> A metodologia funciona independente da ferramenta. Se você usa ERP, usamos essas informações; se usa planilha, fazemos o levantamento nelas; e mesmo quando parte dos dados está só na experiência da equipe, a gente consegue fazer o diagnóstico.</div></div>
         </div>
         <div class="lp-faq__item">
-          <button class="lp-faq__q" aria-expanded="false">O diagnóstico serve apenas para empresas grandes?<span class="lp-faq__icon" aria-hidden="true"></span></button>
-          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Não.</strong> Ele é indicado para construtoras que já enfrentam desafios de crescimento e desejam estruturar a gestão antes que os problemas aumentem.</div></div>
+          <button class="lp-faq__q" aria-expanded="false">Já paguei por um sistema (ou trouxe alguém de fora) e não resolveu. Por que agora seria diferente?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner">Porque o problema quase nunca é o sistema nem a pessoa, é a <strong>falta de visibilidade</strong>. A HT não chega de fora pra mudar tudo de cima, nem vende software como solução. A gente estrutura a sua operação por dentro e faz o que você já tem finalmente te entregar informação. Não se automatiza o escuro: primeiro a gente acende a luz.</div></div>
         </div>
         <div class="lp-faq__item">
-          <button class="lp-faq__q" aria-expanded="false">O diagnóstico obriga minha empresa a contratar a consultoria?<span class="lp-faq__icon" aria-hidden="true"></span></button>
-          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Não.</strong> O diagnóstico é um serviço independente. Ao final, você terá uma visão clara da situação da empresa e poderá decidir os próximos passos.</div></div>
+          <button class="lp-faq__q" aria-expanded="false">O diagnóstico serve só pra empresa grande?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Não.</strong> Ele é pra construtora que já sente os desafios do crescimento e quer estruturar a gestão antes que o problema aumente. A estrutura escala: muda o tamanho, não a lógica.</div></div>
+        </div>
+        <div class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">O diagnóstico obriga a contratar a consultoria?<span class="lp-faq__icon" aria-hidden="true"></span></button>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner"><strong>Não.</strong> É um serviço independente. No fim, você tem uma visão clara da situação da empresa e decide os próximos passos.</div></div>
         </div>
         <div class="lp-faq__item">
           <button class="lp-faq__q" aria-expanded="false">Quanto tempo leva?<span class="lp-faq__icon" aria-hidden="true"></span></button>
-          <div class="lp-faq__a"><div class="lp-faq__a-inner">O prazo varia conforme o porte e a complexidade da operação. Na reunião inicial apresentamos o cronograma completo.</div></div>
+          <div class="lp-faq__a"><div class="lp-faq__a-inner">Depende do porte e da complexidade da operação. Na reunião inicial a gente apresenta o cronograma completo.</div></div>
         </div>
       </div>
     </div>
@@ -756,17 +813,13 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ CTA FINAL ============ -->
 <section class="lp-section lp-cream lp-final" id="cta">
   <div class="lp-container lp-final__grid">
-    <h2 class="reveal">O primeiro passo para a nova estrutura da sua empresa começa aqui.</h2>
+    <h2 class="reveal">O primeiro passo para a organização da sua empresa começa aqui.</h2>
     <div class="lp-final__side reveal" data-delay="1">
-      <p>Volte a enxergar a sua operação. Agende seu Diagnóstico Estratégico com a equipe da HT.</p>
+      <p>Volte a enxergar a sua operação, sem deixar de ser o dono dela. Agende seu Diagnóstico Estratégico com a equipe da HT.</p>
       <a href="#cta" class="ht-btn ht-btn--primary ht-btn--lg lp-cta" style="align-self:flex-start">
         <span class="lp-cta__label">Quero meu Diagnóstico</span>
         <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
       </a>
-      <div class="lp-final__contacts">
-        <a href="mailto:contato@ht.com.br">contato@ht.com.br</a>
-        <a href="tel:+5500000000000">(00) 0000-0000</a>
-      </div>
     </div>
   </div>
 </section>
@@ -795,13 +848,18 @@ ul{margin:0;padding:0;list-style:none}
       </svg>
     </a>
 
-    <!-- ESPAÇO PARA LOCALIZAÇÃO DA EMPRESA — substitua pelo endereço real -->
     <div class="lp-footer__loc">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       <div>
         <span class="lp-footer__label">Localização</span>
-        <p>Rua / Av., nº · Bairro · Cidade/UF · CEP 00000-000</p>
+        <p>Av. Augusto Severo, 1436 H · CEP 59.600-150<br>Centro, Mossoró/RN</p>
       </div>
+    </div>
+
+    <div class="lp-footer__contact">
+      <span class="lp-footer__label">Contato</span>
+      <a href="https://wa.me/5584987294973" target="_blank" rel="noopener">WhatsApp · (84) 98729-4973</a>
+      <a href="mailto:contato@htconsultorialtda.com.br">contato@htconsultorialtda.com.br</a>
     </div>
 
     <a class="lp-footer__social" href="https://www.instagram.com/htconsultoria_" target="_blank" rel="noopener" aria-label="Instagram da HT Consultoria">
@@ -809,7 +867,7 @@ ul{margin:0;padding:0;list-style:none}
       @htconsultoria_
     </a>
 
-    <small>© 2026 HT · Gestão e Diagnóstico Estratégico para construtoras. Todos os direitos reservados.</small>
+    <small>© 2026 HT · Gestão para empresas da construção civil pesada. Todos os direitos reservados.</small>
   </div>
 </footer>
 
