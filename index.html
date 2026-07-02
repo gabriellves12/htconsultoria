@@ -115,6 +115,8 @@ ul{margin:0;padding:0;list-style:none}
   transform:scale(.92);white-space:nowrap;
   transition:max-width var(--dur-slow) var(--ease-out),opacity var(--dur-base),transform var(--dur-base),padding var(--dur-slow)}
 .lp-dock.show-cta .lp-dock__cta{max-width:300px;opacity:1;transform:none;padding-inline:20px!important}
+/* esconde o dock enquanto um modal (vídeo/lead) está aberto */
+body.is-modal-open .lp-dock{opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--dur-fast)}
 .lp-dock__burger{display:none}
 @media(max-width:767px){
   .lp-dock{padding:7px;gap:4px}
@@ -208,11 +210,10 @@ ul{margin:0;padding:0;list-style:none}
 .lp-modal__box{position:relative;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;
   border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-xl);border:1px solid var(--color-border-inverse)}
 .lp-modal__box iframe,.lp-modal__box video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
-.lp-modal__close{position:absolute;top:-48px;right:0;width:40px;height:40px;border-radius:50%;cursor:pointer;
-  background:rgba(242,240,217,.1);border:1px solid var(--color-border-inverse);color:var(--cream-base);
-  display:grid;place-items:center;transition:background var(--dur-fast)}
-.lp-modal__close:hover{background:rgba(242,240,217,.2)}
-@media(max-width:560px){.lp-modal__close{top:-46px}}
+.lp-modal__close{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;border-radius:50%;cursor:pointer;
+  background:rgba(10,10,10,.55);border:1px solid var(--color-border-inverse);color:var(--cream-base);
+  display:grid;place-items:center;transition:background var(--dur-fast);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.lp-modal__close:hover{background:rgba(10,10,10,.8)}
 
 /* ===== PROVA SOCIAL / MARQUEE DE LOGOS ===== */
 .lp-proof{background:var(--color-bg-alt);color:var(--color-text);
@@ -283,10 +284,13 @@ ul{margin:0;padding:0;list-style:none}
 @media(max-width:1023px){
   .lp-origem{display:block;align-items:stretch;min-height:0;padding-block:0}
   .lp-origem__bg{position:relative;inset:auto;height:44vh;min-height:300px}
-  .lp-origem__split{background:var(--neutral-950);text-shadow:none;padding-block:48px;gap:32px}
+  .lp-origem__split{background:var(--neutral-950);text-shadow:none;padding-block:48px;gap:32px;margin-top:-56px;border-radius:24px 24px 0 0;position:relative;z-index:2}
   .lp-origem__left{max-width:none}
   .lp-origem__left .lp-h2 br{display:none}
 }
+/* quebra que aparece só no mobile */
+.br-m{display:none}
+@media(max-width:1023px){.br-m{display:inline}}
 
 /* ===== QUOTE ===== */
 .lp-quote{display:grid;gap:28px}
@@ -478,7 +482,15 @@ ul{margin:0;padding:0;list-style:none}
 .lp-lead form .ht-btn{margin-top:8px}
 .lp-lead__thanks{text-align:center;padding:8px 0}
 .lp-lead__check{width:66px;height:66px;border-radius:50%;background:rgba(163,124,85,.16);color:var(--clay-400);display:grid;place-items:center;margin:0 auto 22px}
-.lp-lead__thanks .ht-btn{margin-top:28px}
+.lp-lead__thanks .lp-lead__wpp{margin-top:28px}
+.lp-lead__thanks .ht-btn{margin-top:12px}
+/* Botão "Falar no WhatsApp" (tela de obrigado) */
+.lp-lead__wpp{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:15px 20px;border-radius:var(--radius-pill);background:#25D366;color:#0A2E17;
+  font:inherit;font-weight:500;font-size:var(--fs-body-sm);text-decoration:none;
+  transition:transform var(--dur-fast),box-shadow var(--dur-fast),background var(--dur-fast)}
+.lp-lead__wpp:hover{transform:translateY(-2px);background:#20bd5a;box-shadow:0 8px 24px rgba(37,211,102,.28)}
+.lp-lead__wpp svg{flex-shrink:0}
 
 /* ===== REVEAL (família de fades curada do animate.css — dispara 1x na entrada) ===== */
 .reveal{opacity:0}
@@ -577,7 +589,7 @@ ul{margin:0;padding:0;list-style:none}
       </div>
       <div class="lp-hero__stats">
         <div class="lp-hero__stat"><b>13 anos</b><span>dentro da operação</span></div>
-        <div class="lp-hero__stat"><b>4 pilares</b><span>toda a empresa, organizada</span></div>
+        <div class="lp-hero__stat"><b>4 pilares</b><span>toda a empresa organizada</span></div>
       </div>
       <div class="lp-hero__bar-right">
         <p class="lp-hero__intro">A HT nasceu para devolver ao empresário o que nenhuma ferramenta entrega sozinha: <strong>visibilidade sobre o próprio negócio.</strong></p>
@@ -603,7 +615,7 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ PROVA SOCIAL / MARQUEE ============ -->
 <section class="lp-proof">
   <div class="lp-container lp-proof__grid reveal">
-    <p class="lp-proof__label">Mais de <b>30</b> construtoras impactadas.</p>
+    <p class="lp-proof__label">Empresas que confiam<br>no nosso trabalho</p>
     <div class="lp-marquee" aria-label="Construtoras atendidas pela HT">
       <div class="lp-marquee__track">
         <img class="lp-logo-img" src="logosclientes/logo1.svg" alt="Cliente HT">
@@ -746,12 +758,12 @@ ul{margin:0;padding:0;list-style:none}
 
 <!-- ============ ORIGEM / SOBRE (texto à esquerda · imagem do fundador à direita) ============ -->
 <section class="lp-section lp-dark lp-origem" id="origem">
-  <div class="lp-origem__bg" style="background-image:url('assets/fundador.png')" aria-hidden="true"></div>
+  <div class="lp-origem__bg" style="background-image:url('fotos/fotonovamentor.png')" aria-hidden="true"></div>
 
   <div class="lp-container lp-origem__split">
     <div class="lp-origem__left reveal">
       <span class="lp-label">A origem da HT.</span>
-      <h2 class="lp-h2">A HT não nasceu numa<br>sala de reunião. <span class="lp-accent">Nasceu<br>dentro de uma construtora.</span></h2>
+      <h2 class="lp-h2">A HT não nasceu numa <br>sala de reunião. <span class="lp-accent">Nasceu <br>dentro de uma construtora.</span></h2>
       <a href="#cta" class="ht-btn ht-btn--primary lp-cta" style="align-self:flex-start">
         <span class="lp-cta__label">Quero meu Diagnóstico</span>
         <span class="lp-cta__icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M2 9h12.2l-4.6-4.6L11 3l7 7-7 7-1.4-1.4L14.2 11H2z"/></svg></span>
@@ -814,7 +826,7 @@ ul{margin:0;padding:0;list-style:none}
 <section class="lp-section lp-dark" id="pilares">
   <div class="lp-container">
     <div class="lp-pillars-intro reveal" style="margin-bottom:48px">
-      <h2 class="lp-h2">Os 4 pilares que transformam uma empresa<br>confusa numa empresa gerida com clareza</h2>
+      <h2 class="lp-h2">Os 4 pilares que <br class="br-m">transformam uma empresa<br>confusa numa empresa <br class="br-m">gerida com clareza</h2>
       <p class="lp-lead" style="max-width:62ch">Em vez de controlar centenas de informações soltas, a HT organiza a empresa em quatro blocos que dá pra enxergar.</p>
     </div>
 
@@ -939,7 +951,6 @@ ul{margin:0;padding:0;list-style:none}
           <input name="telefone" placeholder="Telefone*" required autocomplete="tel" inputmode="tel">
         </div>
         <input name="email" type="email" placeholder="E-mail*" required autocomplete="email">
-        <input name="cargo" placeholder="Cargo na empresa" autocomplete="organization-title">
         <button type="submit" class="ht-btn ht-btn--primary ht-btn--block">Enviar</button>
       </form>
     </div>
@@ -948,7 +959,12 @@ ul{margin:0;padding:0;list-style:none}
       <div class="lp-lead__check" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div>
       <h3>Recebemos o seu cadastro!</h3>
       <p>Obrigado. Em breve um dos nossos consultores vai entrar em contato com você.</p>
-      <button type="button" class="ht-btn ht-btn--primary ht-btn--block" id="leadDone">Fechar</button>
+      <!-- WhatsApp: número oficial HT (55 + DDD 84 + 98729-4973). -->
+      <a class="lp-lead__wpp" id="leadWpp" href="https://wa.me/5584987294973?text=Ol%C3%A1%21%20Me%20cadastrei%20na%20LP%20e%20gostaria%20de%20entender%20como%20funciona%20o%20diagn%C3%B3stico." target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.83c0 4.54-3.7 8.24-8.25 8.24a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24Zm-2.53 4.5c-.12 0-.32.05-.49.24-.17.19-.65.63-.65 1.54 0 .9.66 1.78.75 1.9.09.12 1.3 2.06 3.19 2.81 1.58.62 1.9.5 2.24.47.34-.03 1.11-.45 1.27-.89.16-.44.16-.81.11-.89-.05-.08-.17-.13-.36-.22-.19-.09-1.11-.55-1.28-.61-.17-.06-.3-.09-.42.09-.12.19-.48.61-.59.74-.11.12-.22.14-.4.05-.19-.09-.79-.29-1.5-.93-.56-.5-.93-1.11-1.04-1.3-.11-.19-.01-.29.08-.38.08-.08.19-.22.28-.33.09-.11.12-.19.18-.31.06-.12.03-.23-.01-.32-.05-.09-.42-1.02-.58-1.4-.15-.36-.3-.31-.42-.32-.11 0-.23-.01-.36-.01Z"/></svg>
+        Falar no WhatsApp
+      </a>
+      <button type="button" class="ht-btn ht-btn--ghost-light ht-btn--block" id="leadDone">Fechar</button>
     </div>
   </div>
 </div>
@@ -1002,8 +1018,8 @@ ul{margin:0;padding:0;list-style:none}
   /* Modal de vídeo (abre o vídeo completo, com som e controles) */
   var watchBtn=document.getElementById('watchBtn'),modal=document.getElementById('videoModal'),
       modalVideo=document.getElementById('modalVideo'),modalClose=document.getElementById('modalClose');
-  function openVideo(){modal.classList.add('is-open');document.body.style.overflow='hidden';try{modalVideo.currentTime=0;modalVideo.play();}catch(e){}}
-  function closeVideo(){modal.classList.remove('is-open');document.body.style.overflow='';modalVideo.pause();}
+  function openVideo(){modal.classList.add('is-open');document.body.classList.add('is-modal-open');document.body.style.overflow='hidden';try{modalVideo.currentTime=0;modalVideo.play();}catch(e){}}
+  function closeVideo(){modal.classList.remove('is-open');document.body.classList.remove('is-modal-open');document.body.style.overflow='';modalVideo.pause();}
   watchBtn.addEventListener('click',openVideo);
   modalClose.addEventListener('click',closeVideo);
   modal.addEventListener('click',function(e){if(e.target===modal)closeVideo();});
@@ -1028,16 +1044,24 @@ ul{margin:0;padding:0;list-style:none}
     var leadForm=document.getElementById('leadForm'), leadThanks=document.getElementById('leadThanks'),
         leadFormEl=document.getElementById('leadFormEl'), leadClose=document.getElementById('leadClose'),
         leadDone=document.getElementById('leadDone');
-    function openLead(){ leadForm.hidden=false; leadThanks.hidden=true; lead.classList.add('is-open'); document.body.style.overflow='hidden';
+    function openLead(){ leadForm.hidden=false; leadThanks.hidden=true; lead.classList.add('is-open'); document.body.classList.add('is-modal-open'); document.body.style.overflow='hidden';
       setTimeout(function(){var f=leadFormEl.querySelector('input');if(f)f.focus();},120); }
-    function closeLead(){ lead.classList.remove('is-open'); document.body.style.overflow=''; }
+    function closeLead(){ lead.classList.remove('is-open'); document.body.classList.remove('is-modal-open'); document.body.style.overflow=''; }
     [].slice.call(document.querySelectorAll('.lp-cta, .lp-dock__cta')).forEach(function(btn){
       btn.addEventListener('click',function(e){ e.preventDefault(); openLead(); });
     });
+    /* Endpoint do Google Apps Script (Web App). Cole aqui a URL que termina em /exec */
+    var SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyJ9d7FztG3kL__D790xMI3t-FOi-CfmaJOFJ5G6f8ooLNy8z9uVImZp5D472eP0Kqe/exec';
     leadFormEl.addEventListener('submit',function(e){
       e.preventDefault();
       if(!leadFormEl.checkValidity()){ leadFormEl.reportValidity(); return; }
-      /* TODO: enviar os dados para backend/CRM. Por ora, apenas confirma. */
+      /* Envia os dados para a planilha (fire-and-forget; no-cors evita bloqueio de CORS) */
+      if(SHEETS_ENDPOINT.indexOf('http')===0){
+        var params=new URLSearchParams();
+        new FormData(leadFormEl).forEach(function(v,k){ params.append(k,v); });
+        params.append('origem', location.href);
+        fetch(SHEETS_ENDPOINT,{method:'POST',mode:'no-cors',body:params}).catch(function(){});
+      }
       leadForm.hidden=true; leadThanks.hidden=false; leadFormEl.reset();
     });
     leadClose.addEventListener('click',closeLead);

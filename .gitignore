@@ -7,3 +7,6 @@
 
 # Logs / temporários
 *.log
+
+# Fonte pesada não usada pelo site (usamos o .avif convertido)
+fotos/dobra2.png
